@@ -9,6 +9,7 @@ Mental Math Practice App - A TypeScript/React application for 5th grade students
 ## Tech Stack
 
 - **Frontend**: React 19 + TypeScript + Vite 7
+- **Routing**: TanStack Router (file-based routing)
 - **Styling**: Tailwind CSS v4
 - **Icons**: lucide-react
 - **State Management**: React hooks (useState, useCallback) - no external state library
@@ -45,7 +46,7 @@ Always separate type imports from value imports.
 1. **Game State**: Managed by `useGameState` hook - handles question generation, answer validation, scoring with streak multipliers
 2. **Timer**: Separate `useTimer` hook tracks elapsed time
 3. **Progress Persistence**: `useLocalStorage` hook syncs to browser storage automatically
-4. **Screen Navigation**: Simple state-based routing (no react-router) - screens: landing → operation-select → difficulty-select → game → stats
+4. **Screen Navigation**: TanStack Router file-based routing - routes: / (landing) → /operation-select → /difficulty-select → /game → /stats
 
 ### Key Files
 
@@ -54,6 +55,14 @@ Always separate type imports from value imports.
 - **src/utils/mathGenerator.ts**: Generates random problems ensuring valid answers (e.g., subtraction never produces negatives, division always produces integers on easy/medium)
 - **src/hooks/useGameState.ts**: Central game logic orchestrator
 - **src/utils/storage.ts**: Helper functions to initialize/update GameProgress structure in localStorage
+- **src/routes/**: File-based routes for TanStack Router
+  - **__root.tsx**: Root layout component with Outlet for child routes
+  - **index.tsx**: Landing page (/)
+  - **operation-select.tsx**: Operation selection screen
+  - **difficulty-select.tsx**: Difficulty selection (receives operation via search params)
+  - **game.tsx**: Main game screen (receives operation & difficulty via search params)
+  - **stats.tsx**: Progress statistics page
+- **src/routeTree.gen.ts**: Auto-generated route tree (do not edit manually)
 
 ### Scoring System
 
@@ -69,9 +78,30 @@ Always separate type imports from value imports.
 - **Multiplication**: Easy (times tables 1-9), Medium (1-9 × 10-20), Hard (10-25 × 2-9)
 - **Division**: Always generates problems with integer quotients (uses multiplication in reverse)
 
+## Routing with TanStack Router
+
+This app uses TanStack Router with file-based routing. The router is configured in `vite.config.ts` with the `@tanstack/router-plugin` which auto-generates the route tree.
+
+### Route Flow & Search Params
+
+- **/** (index): Landing page with "Start Practice" and "View Progress" buttons
+- **/operation-select**: Choose math operation (addition, subtraction, multiplication, division)
+- **/difficulty-select?operation=X**: Choose difficulty level (easy, medium, hard) - receives `operation` via search params
+- **/game?operation=X&difficulty=Y**: Main game screen - receives both `operation` and `difficulty` via search params
+- **/stats**: View overall progress and per-operation statistics
+
+Search params are type-validated using `validateSearch` in route definitions. Routes use TanStack Router's `useNavigate()` hook and `Link` component for navigation.
+
+### Adding New Routes
+
+1. Create a new file in `src/routes/` (e.g., `my-route.tsx`)
+2. Use `createFileRoute('/my-route')` to define the route
+3. The Vite plugin will auto-regenerate `routeTree.gen.ts`
+4. Import and use with `<Link to="/my-route">` or `navigate({ to: '/my-route' })`
+
 ## Component Structure
 
-Components are mostly presentational - state lives in parent (App.tsx) or custom hooks:
+Components are mostly presentational - state lives in routes or custom hooks:
 
 - **OperationSelector**: Shows 4 operation buttons with mini stats from gameProgress
 - **DifficultySelector**: Shows 3 difficulty buttons with number range descriptions
@@ -83,16 +113,16 @@ Components are mostly presentational - state lives in parent (App.tsx) or custom
 
 ## State Management Pattern
 
-No Redux/Zustand - uses composition of hooks:
+No Redux/Zustand - uses composition of hooks within routes:
 
 ```typescript
-// In App.tsx
+// In a route component
 const [gameProgress, setGameProgress] = useLocalStorage(STORAGE_KEYS.GAME_PROGRESS, createEmptyGameProgress());
 const { currentQuestion, sessionData, submitAnswer, ... } = useGameState();
 const { elapsedTime, start, pause, reset } = useTimer();
 ```
 
-On session end, App.tsx calls `updateGameProgress()` to merge session stats into overall progress and persist to localStorage.
+Game progress is managed locally within routes using the `useLocalStorage` hook. On game session end, routes call `updateGameProgress()` to merge session stats into overall progress and persist to localStorage.
 
 ## localStorage Schema
 

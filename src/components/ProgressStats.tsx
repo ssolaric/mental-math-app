@@ -1,29 +1,36 @@
-import { ArrowLeft, Trophy, Target, Flame } from 'lucide-react';
+import { Trophy, Target, Flame, Trash2 } from 'lucide-react';
 import type { GameProgress } from '../types';
 import { OPERATION_LABELS } from '../constants/gameConfig';
 
 interface ProgressStatsProps {
   gameProgress: GameProgress;
-  onBack: () => void;
+  onResetProgress: () => void;
 }
 
-export const ProgressStats = ({ gameProgress, onBack }: ProgressStatsProps) => {
+export const ProgressStats = ({ gameProgress, onResetProgress }: ProgressStatsProps) => {
   const overallAccuracy =
     gameProgress.totalProblems > 0
       ? Math.round((gameProgress.totalCorrect / gameProgress.totalProblems) * 100)
       : 0;
 
+  const handleResetClick = () => {
+    if (window.confirm('Are you sure you want to reset ALL progress? This cannot be undone!')) {
+      onResetProgress();
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 p-8">
-      <button
-        onClick={onBack}
-        className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors mb-8"
-      >
-        <ArrowLeft size={24} />
-        <span className="text-lg">Back to Home</span>
-      </button>
-
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-8 text-center">Your Progress</h1>
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 text-center md:text-left">Your Progress</h1>
+        <button
+          onClick={handleResetClick}
+          className="bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-xl transition-colors flex items-center gap-2"
+        >
+          <Trash2 size={20} />
+          Reset All Progress
+        </button>
+      </div>
 
       <div className="max-w-4xl mx-auto w-full space-y-8">
         <div className="bg-white rounded-2xl shadow-lg p-8">
