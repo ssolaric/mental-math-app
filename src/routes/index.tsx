@@ -7,7 +7,7 @@ export const Route = createFileRoute('/')({
 
 function LandingPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
       <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8 text-center">
         Mental Math Practice
       </h1>
@@ -23,7 +23,7 @@ function LandingPage() {
         </Link>
         <Link
           to="/stats"
-          className="bg-purple-600 hover:bg-purple-700 text-white font-bold text-2xl py-6 rounded-2xl shadow-lg transition-transform transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
+          className="bg-green-600 hover:bg-green-700 text-white font-bold text-2xl py-6 rounded-2xl shadow-lg transition-transform transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3"
         >
           <BarChart3 size={32} />
           View Progress

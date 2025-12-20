@@ -67,7 +67,7 @@ function GamePage() {
     setTimeout(() => {
       setShowFeedback(false);
       nextQuestion();
-    }, 1500);
+    }, 1000);
   };
 
   const handleQuitSession = () => {
@@ -102,7 +102,7 @@ function GamePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 p-8">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
       <div className="flex justify-between items-start mb-8">
         <button
           onClick={handleQuitSession}

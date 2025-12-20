@@ -20,7 +20,7 @@ export const ProgressStats = ({ gameProgress, onResetProgress }: ProgressStatsPr
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 p-8">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 text-center md:text-left">Your Progress</h1>
         <button

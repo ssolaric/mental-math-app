@@ -14,7 +14,7 @@ export const DifficultySelector = ({ operation, onSelectDifficulty }: Difficulty
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
       <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">{OPERATION_LABELS[operation]}</h1>
       <p className="text-xl text-gray-600 mb-12">Choose your difficulty level</p>
 

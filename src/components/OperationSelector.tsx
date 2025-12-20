@@ -11,12 +11,12 @@ export const OperationSelector = ({ onSelectOperation, gameProgress }: Operation
   const operations: Array<{ type: Operation; icon: React.ReactNode; color: string }> = [
     { type: 'addition', icon: <Plus size={48} />, color: 'bg-green-500 hover:bg-green-600' },
     { type: 'subtraction', icon: <Minus size={48} />, color: 'bg-blue-500 hover:bg-blue-600' },
-    { type: 'multiplication', icon: <X size={48} />, color: 'bg-purple-500 hover:bg-purple-600' },
+    { type: 'multiplication', icon: <X size={48} />, color: 'bg-teal-500 hover:bg-teal-600' },
     { type: 'division', icon: <Divide size={48} />, color: 'bg-orange-500 hover:bg-orange-600' },
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-indigo-100 to-purple-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
       <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Mental Math Practice</h1>
       <p className="text-xl text-gray-600 mb-12">Choose an operation to practice</p>
 

@@ -141,4 +141,4 @@ Game progress is managed locally within routes using the `useLocalStorage` hook.
 - Uses Tailwind CSS v4 (imported via `@import "tailwindcss"` in index.css)
 - Kid-friendly: large buttons, bright colors, clear visual feedback
 - Responsive: uses md: breakpoints for desktop layouts
-- Color scheme: operation buttons have distinct colors (green/blue/purple/orange), streak indicator changes color based on streak level
+- Color scheme: operation buttons have distinct colors (green/blue/teal/orange), streak indicator changes color based on streak level
