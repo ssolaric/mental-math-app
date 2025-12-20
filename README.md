@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# Mental Math Practice App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A kid-friendly math practice application for 5th grade students to practice arithmetic operations with real-time scoring, streak tracking, and progress persistence.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **4 Operations**: Addition, Subtraction, Multiplication, Division
+- **3 Difficulty Levels**: Easy, Medium, Hard (age-appropriate for 5th graders)
+- **Smart Scoring**: Base points + streak multipliers (up to 2x) + speed bonuses
+- **Progress Tracking**: All statistics saved in browser localStorage
+- **No Login Required**: Single student use, instant access
+- **Responsive Design**: Works on desktop, tablet, and mobile
 
-## React Compiler
+## Quick Start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Install dependencies
+npm install
 
-## Expanding the ESLint configuration
+# Run development server
+npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+# Build for production
+npm run build
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Preview production build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- React 19 + TypeScript
+- Vite 7 (build tool)
+- Tailwind CSS v4 (styling)
+- lucide-react (icons)
+- localStorage (data persistence)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+
 ```
+src/
+├── components/       # React components (OperationSelector, Question, etc.)
+├── hooks/           # Custom hooks (useGameState, useTimer, useLocalStorage)
+├── utils/           # Utilities (mathGenerator, validators, storage helpers)
+├── constants/       # Game configuration (scoring rules, difficulty ranges)
+├── types/           # TypeScript type definitions
+├── App.tsx          # Main application component
+└── main.tsx         # Application entry point
+```
+
+## How It Works
+
+1. Student selects an operation (+ − × ÷)
+2. Chooses difficulty level (Easy, Medium, Hard)
+3. Answers math problems with immediate feedback
+4. Earns points with streak multipliers for consecutive correct answers
+5. Progress is automatically saved to browser storage
+
+## Deployment
+
+Built as a static site - can be deployed to:
+- Vercel (recommended)
+- Netlify
+- GitHub Pages
+- Any static hosting service
+
+```bash
+npm run build    # Generates dist/ folder
+# Deploy the dist/ folder to your hosting service
+```
+
+## Development Notes
+
+See [CLAUDE.md](./CLAUDE.md) for detailed architecture and development guidelines.
+
+## License
+
+MIT
