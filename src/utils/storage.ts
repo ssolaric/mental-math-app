@@ -1,4 +1,4 @@
-import type { GameProgress, OperationStats, Operation } from '../types';
+import type { GameProgress, Operation, OperationStats } from "../types";
 
 const createEmptyOperationStats = (): OperationStats => ({
   totalAttempts: 0,
@@ -28,7 +28,7 @@ export const updateGameProgress = (
   totalQuestions: number,
   score: number,
   bestStreak: number,
-  averageTimeMs: number
+  averageTimeMs: number,
 ): GameProgress => {
   const operationStats = progress.stats[operation];
 
@@ -47,7 +47,8 @@ export const updateGameProgress = (
         averageTime:
           operationStats.totalAttempts === 0
             ? averageTimeMs
-            : (operationStats.averageTime * operationStats.totalAttempts + averageTimeMs * totalQuestions) /
+            : (operationStats.averageTime * operationStats.totalAttempts +
+                averageTimeMs * totalQuestions) /
               (operationStats.totalAttempts + totalQuestions),
         lastPlayed: Date.now(),
       },

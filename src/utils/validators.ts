@@ -1,6 +1,9 @@
-import type { Question } from '../types';
+import type { Question } from "../types";
 
-export const validateAnswer = (userAnswer: string, question: Question): boolean => {
+export const validateAnswer = (
+  userAnswer: string,
+  question: Question,
+): boolean => {
   const parsedAnswer = parseInt(userAnswer, 10);
 
   if (isNaN(parsedAnswer)) {
@@ -11,7 +14,7 @@ export const validateAnswer = (userAnswer: string, question: Question): boolean 
 };
 
 export const isValidNumber = (value: string): boolean => {
-  if (value === '' || value === '-') {
+  if (value === "" || value === "-") {
     return true; // Allow empty or just minus sign during typing
   }
 

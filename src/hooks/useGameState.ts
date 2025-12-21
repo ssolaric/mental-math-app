@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
-import type { Operation, Difficulty, Question, SessionData } from '../types';
-import { generateQuestion } from '../utils/mathGenerator';
-import { validateAnswer } from '../utils/validators';
-import { calculatePoints } from '../constants/gameConfig';
+import { useCallback, useState } from "react";
+import { calculatePoints } from "../constants/gameConfig";
+import type { Difficulty, Operation, Question, SessionData } from "../types";
+import { generateQuestion } from "../utils/mathGenerator";
+import { validateAnswer } from "../utils/validators";
 
 export interface UseGameStateReturn {
   currentQuestion: Question | null;
@@ -17,25 +17,30 @@ export interface UseGameStateReturn {
 export const useGameState = (): UseGameStateReturn => {
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [sessionData, setSessionData] = useState<SessionData | null>(null);
-  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(null);
+  const [lastAnswerCorrect, setLastAnswerCorrect] = useState<boolean | null>(
+    null,
+  );
 
-  const startSession = useCallback((operation: Operation, difficulty: Difficulty) => {
-    const firstQuestion = generateQuestion(operation, difficulty);
+  const startSession = useCallback(
+    (operation: Operation, difficulty: Difficulty) => {
+      const firstQuestion = generateQuestion(operation, difficulty);
 
-    setCurrentQuestion(firstQuestion);
-    setSessionData({
-      operation,
-      difficulty,
-      questionsAnswered: 0,
-      correctAnswers: 0,
-      currentStreak: 0,
-      bestStreak: 0,
-      score: 0,
-      startTime: Date.now(),
-      lastQuestionTime: Date.now(),
-    });
-    setLastAnswerCorrect(null);
-  }, []);
+      setCurrentQuestion(firstQuestion);
+      setSessionData({
+        operation,
+        difficulty,
+        questionsAnswered: 0,
+        correctAnswers: 0,
+        currentStreak: 0,
+        bestStreak: 0,
+        score: 0,
+        startTime: Date.now(),
+        lastQuestionTime: Date.now(),
+      });
+      setLastAnswerCorrect(null);
+    },
+    [],
+  );
 
   const submitAnswer = useCallback(
     (answer: string, timeInSeconds: number): boolean => {
@@ -61,13 +66,16 @@ export const useGameState = (): UseGameStateReturn => {
 
       return isCorrect;
     },
-    [currentQuestion, sessionData]
+    [currentQuestion, sessionData],
   );
 
   const nextQuestion = useCallback(() => {
     if (!sessionData) return;
 
-    const newQuestion = generateQuestion(sessionData.operation, sessionData.difficulty);
+    const newQuestion = generateQuestion(
+      sessionData.operation,
+      sessionData.difficulty,
+    );
     setCurrentQuestion(newQuestion);
     setLastAnswerCorrect(null);
   }, [sessionData]);

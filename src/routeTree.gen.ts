@@ -8,125 +8,125 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as StatsRouteImport } from './routes/stats'
-import { Route as OperationSelectRouteImport } from './routes/operation-select'
-import { Route as GameRouteImport } from './routes/game'
-import { Route as DifficultySelectRouteImport } from './routes/difficulty-select'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as DifficultySelectRouteImport } from "./routes/difficulty-select";
+import { Route as GameRouteImport } from "./routes/game";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as OperationSelectRouteImport } from "./routes/operation-select";
+import { Route as StatsRouteImport } from "./routes/stats";
 
 const StatsRoute = StatsRouteImport.update({
-  id: '/stats',
-  path: '/stats',
+  id: "/stats",
+  path: "/stats",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const OperationSelectRoute = OperationSelectRouteImport.update({
-  id: '/operation-select',
-  path: '/operation-select',
+  id: "/operation-select",
+  path: "/operation-select",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const GameRoute = GameRouteImport.update({
-  id: '/game',
-  path: '/game',
+  id: "/game",
+  path: "/game",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DifficultySelectRoute = DifficultySelectRouteImport.update({
-  id: '/difficulty-select',
-  path: '/difficulty-select',
+  id: "/difficulty-select",
+  path: "/difficulty-select",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/difficulty-select': typeof DifficultySelectRoute
-  '/game': typeof GameRoute
-  '/operation-select': typeof OperationSelectRoute
-  '/stats': typeof StatsRoute
+  "/": typeof IndexRoute;
+  "/difficulty-select": typeof DifficultySelectRoute;
+  "/game": typeof GameRoute;
+  "/operation-select": typeof OperationSelectRoute;
+  "/stats": typeof StatsRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/difficulty-select': typeof DifficultySelectRoute
-  '/game': typeof GameRoute
-  '/operation-select': typeof OperationSelectRoute
-  '/stats': typeof StatsRoute
+  "/": typeof IndexRoute;
+  "/difficulty-select": typeof DifficultySelectRoute;
+  "/game": typeof GameRoute;
+  "/operation-select": typeof OperationSelectRoute;
+  "/stats": typeof StatsRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/difficulty-select': typeof DifficultySelectRoute
-  '/game': typeof GameRoute
-  '/operation-select': typeof OperationSelectRoute
-  '/stats': typeof StatsRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/difficulty-select": typeof DifficultySelectRoute;
+  "/game": typeof GameRoute;
+  "/operation-select": typeof OperationSelectRoute;
+  "/stats": typeof StatsRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/difficulty-select'
-    | '/game'
-    | '/operation-select'
-    | '/stats'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/difficulty-select' | '/game' | '/operation-select' | '/stats'
+    | "/"
+    | "/difficulty-select"
+    | "/game"
+    | "/operation-select"
+    | "/stats";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/difficulty-select" | "/game" | "/operation-select" | "/stats";
   id:
-    | '__root__'
-    | '/'
-    | '/difficulty-select'
-    | '/game'
-    | '/operation-select'
-    | '/stats'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/difficulty-select"
+    | "/game"
+    | "/operation-select"
+    | "/stats";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DifficultySelectRoute: typeof DifficultySelectRoute
-  GameRoute: typeof GameRoute
-  OperationSelectRoute: typeof OperationSelectRoute
-  StatsRoute: typeof StatsRoute
+  IndexRoute: typeof IndexRoute;
+  DifficultySelectRoute: typeof DifficultySelectRoute;
+  GameRoute: typeof GameRoute;
+  OperationSelectRoute: typeof OperationSelectRoute;
+  StatsRoute: typeof StatsRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/stats': {
-      id: '/stats'
-      path: '/stats'
-      fullPath: '/stats'
-      preLoaderRoute: typeof StatsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/operation-select': {
-      id: '/operation-select'
-      path: '/operation-select'
-      fullPath: '/operation-select'
-      preLoaderRoute: typeof OperationSelectRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/game': {
-      id: '/game'
-      path: '/game'
-      fullPath: '/game'
-      preLoaderRoute: typeof GameRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/difficulty-select': {
-      id: '/difficulty-select'
-      path: '/difficulty-select'
-      fullPath: '/difficulty-select'
-      preLoaderRoute: typeof DifficultySelectRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/stats": {
+      id: "/stats";
+      path: "/stats";
+      fullPath: "/stats";
+      preLoaderRoute: typeof StatsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/operation-select": {
+      id: "/operation-select";
+      path: "/operation-select";
+      fullPath: "/operation-select";
+      preLoaderRoute: typeof OperationSelectRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/game": {
+      id: "/game";
+      path: "/game";
+      fullPath: "/game";
+      preLoaderRoute: typeof GameRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/difficulty-select": {
+      id: "/difficulty-select";
+      path: "/difficulty-select";
+      fullPath: "/difficulty-select";
+      preLoaderRoute: typeof DifficultySelectRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -136,7 +136,7 @@ const rootRouteChildren: RootRouteChildren = {
   GameRoute: GameRoute,
   OperationSelectRoute: OperationSelectRoute,
   StatsRoute: StatsRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();

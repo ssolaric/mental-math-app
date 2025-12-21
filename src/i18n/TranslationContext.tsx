@@ -1,10 +1,10 @@
-import { createContext, useContext, useEffect } from 'react';
-import type { ReactNode } from 'react';
-import type { Locale } from './types';
-import { translations } from './index';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import type { Preferences } from '../types';
-import { STORAGE_KEYS } from '../types';
+import type { ReactNode } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import type { Preferences } from "../types";
+import { STORAGE_KEYS } from "../types";
+import { translations } from "./index";
+import type { Locale } from "./types";
 
 interface TranslationContextValue {
   locale: Locale;
@@ -12,13 +12,15 @@ interface TranslationContextValue {
   t: (key: string, params?: Record<string, string | number>) => string;
 }
 
-const TranslationContext = createContext<TranslationContextValue | undefined>(undefined);
+const TranslationContext = createContext<TranslationContextValue | undefined>(
+  undefined,
+);
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
   // Default to Spanish - store in localStorage preferences
   const [preferences, setPreferences] = useLocalStorage<Preferences>(
     STORAGE_KEYS.PREFERENCES,
-    { language: 'es' }
+    { language: "es" },
   );
 
   const setLocale = (newLocale: Locale) => {
@@ -26,11 +28,11 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (key: string, params?: Record<string, string | number>): string => {
-    const keys = key.split('.');
+    const keys = key.split(".");
     let value: any = translations[preferences.language];
 
     for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
+      if (value && typeof value === "object" && k in value) {
         value = value[k];
       } else {
         console.warn(`Translation key not found: ${key}`);
@@ -38,7 +40,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    if (typeof value !== 'string') {
+    if (typeof value !== "string") {
       console.warn(`Translation value is not a string: ${key}`);
       return key;
     }
@@ -47,7 +49,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     if (params) {
       return Object.entries(params).reduce(
         (str, [param, val]) => str.replace(`{{${param}}}`, String(val)),
-        value
+        value,
       );
     }
 
@@ -56,11 +58,13 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
   // Update document language attribute for accessibility
   useEffect(() => {
-    document.documentElement.lang = preferences.language === 'es' ? 'es' : 'en';
+    document.documentElement.lang = preferences.language === "es" ? "es" : "en";
   }, [preferences.language]);
 
   return (
-    <TranslationContext.Provider value={{ locale: preferences.language, setLocale, t }}>
+    <TranslationContext.Provider
+      value={{ locale: preferences.language, setLocale, t }}
+    >
       {children}
     </TranslationContext.Provider>
   );
@@ -69,7 +73,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 export function useTranslation() {
   const context = useContext(TranslationContext);
   if (!context) {
-    throw new Error('useTranslation must be used within TranslationProvider');
+    throw new Error("useTranslation must be used within TranslationProvider");
   }
   return context;
 }

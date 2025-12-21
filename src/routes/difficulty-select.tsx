@@ -1,12 +1,12 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import type { Operation, Difficulty } from '../types';
-import { DifficultySelector } from '../components/DifficultySelector';
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { DifficultySelector } from "../components/DifficultySelector";
+import type { Difficulty, Operation } from "../types";
 
 type DifficultySearch = {
   operation: Operation;
 };
 
-export const Route = createFileRoute('/difficulty-select')({
+export const Route = createFileRoute("/difficulty-select")({
   validateSearch: (search: Record<string, unknown>): DifficultySearch => {
     return {
       operation: search.operation as Operation,
@@ -21,7 +21,7 @@ function DifficultySelectPage() {
 
   const handleSelectDifficulty = (difficulty: Difficulty) => {
     navigate({
-      to: '/game',
+      to: "/game",
       search: { operation, difficulty },
     });
   };

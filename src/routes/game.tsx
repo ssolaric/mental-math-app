@@ -1,25 +1,25 @@
-import { useState, useEffect } from 'react';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import type { Operation, Difficulty } from '../types';
-import { STORAGE_KEYS } from '../types';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useGameState } from '../hooks/useGameState';
-import { useTimer } from '../hooks/useTimer';
-import { createEmptyGameProgress, updateGameProgress } from '../utils/storage';
-import { Question } from '../components/Question';
-import { AnswerInput } from '../components/AnswerInput';
-import { Feedback } from '../components/Feedback';
-import { ScoreBoard } from '../components/ScoreBoard';
-import { StreakIndicator } from '../components/StreakIndicator';
-import { Timer } from '../components/Timer';
-import { useTranslation } from '../i18n/TranslationContext';
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { AnswerInput } from "../components/AnswerInput";
+import { Feedback } from "../components/Feedback";
+import { Question } from "../components/Question";
+import { ScoreBoard } from "../components/ScoreBoard";
+import { StreakIndicator } from "../components/StreakIndicator";
+import { Timer } from "../components/Timer";
+import { useGameState } from "../hooks/useGameState";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useTimer } from "../hooks/useTimer";
+import { useTranslation } from "../i18n/TranslationContext";
+import type { Difficulty, Operation } from "../types";
+import { STORAGE_KEYS } from "../types";
+import { createEmptyGameProgress, updateGameProgress } from "../utils/storage";
 
 type GameSearch = {
   operation: Operation;
   difficulty: Difficulty;
 };
 
-export const Route = createFileRoute('/game')({
+export const Route = createFileRoute("/game")({
   validateSearch: (search: Record<string, unknown>): GameSearch => {
     return {
       operation: search.operation as Operation,
@@ -37,7 +37,7 @@ function GamePage() {
 
   const [gameProgress, setGameProgress] = useLocalStorage(
     STORAGE_KEYS.GAME_PROGRESS,
-    createEmptyGameProgress()
+    createEmptyGameProgress(),
   );
 
   const {
@@ -50,7 +50,12 @@ function GamePage() {
     endSession,
   } = useGameState();
 
-  const { elapsedTime, start: startTimer, pause: pauseTimer, reset: resetTimer } = useTimer();
+  const {
+    elapsedTime,
+    start: startTimer,
+    pause: pauseTimer,
+    reset: resetTimer,
+  } = useTimer();
 
   // Start the game session when component mounts
   useEffect(() => {
@@ -79,7 +84,8 @@ function GamePage() {
     if (finalSession) {
       const avgTime =
         finalSession.questionsAnswered > 0
-          ? (Date.now() - finalSession.startTime) / finalSession.questionsAnswered
+          ? (Date.now() - finalSession.startTime) /
+            finalSession.questionsAnswered
           : 0;
 
       const updatedProgress = updateGameProgress(
@@ -89,14 +95,14 @@ function GamePage() {
         finalSession.questionsAnswered,
         finalSession.score,
         finalSession.bestStreak,
-        avgTime
+        avgTime,
       );
 
       setGameProgress(updatedProgress);
     }
 
     resetTimer();
-    navigate({ to: '/' });
+    navigate({ to: "/" });
   };
 
   if (!currentQuestion || !sessionData) {
@@ -110,7 +116,7 @@ function GamePage() {
           onClick={handleQuitSession}
           className="bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
         >
-          {t('common.quit')}
+          {t("common.quit")}
         </button>
       </div>
 
@@ -124,18 +130,26 @@ function GamePage() {
       </div>
 
       <div className="flex-1 flex flex-col items-center justify-center">
-        <Question question={currentQuestion} questionNumber={sessionData.questionsAnswered + 1} />
+        <Question
+          question={currentQuestion}
+          questionNumber={sessionData.questionsAnswered + 1}
+        />
 
         {showFeedback && lastAnswerCorrect !== null ? (
           <div className="mt-8">
             <Feedback
               isCorrect={lastAnswerCorrect}
-              correctAnswer={!lastAnswerCorrect ? currentQuestion.correctAnswer : undefined}
+              correctAnswer={
+                !lastAnswerCorrect ? currentQuestion.correctAnswer : undefined
+              }
             />
           </div>
         ) : (
           <div className="mt-8">
-            <AnswerInput onSubmit={handleAnswerSubmit} disabled={showFeedback} />
+            <AnswerInput
+              onSubmit={handleAnswerSubmit}
+              disabled={showFeedback}
+            />
           </div>
         )}
       </div>

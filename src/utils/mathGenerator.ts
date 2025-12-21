@@ -1,5 +1,5 @@
-import type { Operation, Difficulty, Question } from '../types';
-import { DIFFICULTY_RANGES } from '../constants/gameConfig';
+import { DIFFICULTY_RANGES } from "../constants/gameConfig";
+import type { Difficulty, Operation, Question } from "../types";
 
 const randomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -13,7 +13,7 @@ const generateAddition = (difficulty: Difficulty): Question => {
   return {
     num1,
     num2,
-    operation: 'addition',
+    operation: "addition",
     correctAnswer: num1 + num2,
     difficulty,
   };
@@ -32,7 +32,7 @@ const generateSubtraction = (difficulty: Difficulty): Question => {
   return {
     num1,
     num2,
-    operation: 'subtraction',
+    operation: "subtraction",
     correctAnswer: num1 - num2,
     difficulty,
   };
@@ -46,7 +46,7 @@ const generateMultiplication = (difficulty: Difficulty): Question => {
   return {
     num1,
     num2,
-    operation: 'multiplication',
+    operation: "multiplication",
     correctAnswer: num1 * num2,
     difficulty,
   };
@@ -55,7 +55,7 @@ const generateMultiplication = (difficulty: Difficulty): Question => {
 const generateDivision = (difficulty: Difficulty): Question => {
   const range = DIFFICULTY_RANGES.division[difficulty];
 
-  if (difficulty === 'easy') {
+  if (difficulty === "easy") {
     // For easy: generate from multiplication facts (1-9 × 1-9)
     const divisor = randomInt(range.min1, range.max1);
     const quotient = randomInt(range.min1, range.max1);
@@ -64,7 +64,7 @@ const generateDivision = (difficulty: Difficulty): Question => {
     return {
       num1: dividend,
       num2: divisor,
-      operation: 'division',
+      operation: "division",
       correctAnswer: quotient,
       difficulty,
     };
@@ -73,29 +73,32 @@ const generateDivision = (difficulty: Difficulty): Question => {
     const divisor = randomInt(range.min1, range.max1);
     const quotient = randomInt(
       Math.ceil(range.min2 / divisor),
-      Math.floor(range.max2 / divisor)
+      Math.floor(range.max2 / divisor),
     );
     const dividend = divisor * quotient;
 
     return {
       num1: dividend,
       num2: divisor,
-      operation: 'division',
+      operation: "division",
       correctAnswer: quotient,
       difficulty,
     };
   }
 };
 
-export const generateQuestion = (operation: Operation, difficulty: Difficulty): Question => {
+export const generateQuestion = (
+  operation: Operation,
+  difficulty: Difficulty,
+): Question => {
   switch (operation) {
-    case 'addition':
+    case "addition":
       return generateAddition(difficulty);
-    case 'subtraction':
+    case "subtraction":
       return generateSubtraction(difficulty);
-    case 'multiplication':
+    case "multiplication":
       return generateMultiplication(difficulty);
-    case 'division':
+    case "division":
       return generateDivision(difficulty);
     default:
       throw new Error(`Unknown operation: ${operation}`);

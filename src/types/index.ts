@@ -1,7 +1,11 @@
-import type { Locale } from '../i18n/types';
+import type { Locale } from "../i18n/types";
 
-export type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division';
-export type Difficulty = 'easy' | 'medium' | 'hard';
+export type Operation =
+  | "addition"
+  | "subtraction"
+  | "multiplication"
+  | "division";
+export type Difficulty = "easy" | "medium" | "hard";
 
 export interface Question {
   num1: number;
@@ -52,18 +56,18 @@ export interface Preferences {
 }
 
 export const STORAGE_KEYS = {
-  GAME_PROGRESS: 'mental-math-progress',
-  CURRENT_SESSION: 'mental-math-session',
-  PREFERENCES: 'mental-math-preferences',
+  GAME_PROGRESS: "mental-math-progress",
+  CURRENT_SESSION: "mental-math-session",
+  PREFERENCES: "mental-math-preferences",
 } as const;
 
 export type Screen =
-  | 'landing'
-  | 'operation-select'
-  | 'difficulty-select'
-  | 'game'
-  | 'summary'
-  | 'stats';
+  | "landing"
+  | "operation-select"
+  | "difficulty-select"
+  | "game"
+  | "summary"
+  | "stats";
 
 export interface GameState {
   screen: Screen;

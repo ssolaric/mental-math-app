@@ -1,4 +1,4 @@
-import type { Difficulty, Operation } from '../types';
+import type { Difficulty, Operation } from "../types";
 
 export interface DifficultyRange {
   min1: number;
@@ -7,7 +7,10 @@ export interface DifficultyRange {
   max2: number;
 }
 
-export const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, DifficultyRange>> = {
+export const DIFFICULTY_RANGES: Record<
+  Operation,
+  Record<Difficulty, DifficultyRange>
+> = {
   addition: {
     easy: { min1: 1, max1: 9, min2: 1, max2: 9 },
     medium: { min1: 10, max1: 99, min2: 10, max2: 99 },
@@ -52,7 +55,7 @@ export const getSpeedBonus = (timeInSeconds: number): number => {
 export const calculatePoints = (
   difficulty: Difficulty,
   streak: number,
-  timeInSeconds: number
+  timeInSeconds: number,
 ): number => {
   const base = BASE_POINTS[difficulty];
   const multiplier = getStreakMultiplier(streak);
@@ -61,44 +64,47 @@ export const calculatePoints = (
 };
 
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
-  easy: 'Easy',
-  medium: 'Medium',
-  hard: 'Hard',
+  easy: "Easy",
+  medium: "Medium",
+  hard: "Hard",
 };
 
 export const OPERATION_LABELS: Record<Operation, string> = {
-  addition: 'Addition',
-  subtraction: 'Subtraction',
-  multiplication: 'Multiplication',
-  division: 'Division',
+  addition: "Addition",
+  subtraction: "Subtraction",
+  multiplication: "Multiplication",
+  division: "Division",
 };
 
 export const OPERATION_SYMBOLS: Record<Operation, string> = {
-  addition: '+',
-  subtraction: '−',
-  multiplication: '×',
-  division: '÷',
+  addition: "+",
+  subtraction: "−",
+  multiplication: "×",
+  division: "÷",
 };
 
-export const DIFFICULTY_DESCRIPTIONS: Record<Operation, Record<Difficulty, string>> = {
+export const DIFFICULTY_DESCRIPTIONS: Record<
+  Operation,
+  Record<Difficulty, string>
+> = {
   addition: {
-    easy: '1-9 + 1-9',
-    medium: '10-99 + 10-99',
-    hard: '100-999 + 10-99',
+    easy: "1-9 + 1-9",
+    medium: "10-99 + 10-99",
+    hard: "100-999 + 10-99",
   },
   subtraction: {
-    easy: '5-9 − 1-5',
-    medium: '20-99 − 1-50',
-    hard: '100-999 − 10-99',
+    easy: "5-9 − 1-5",
+    medium: "20-99 − 1-50",
+    hard: "100-999 − 10-99",
   },
   multiplication: {
-    easy: '1-9 × 1-9',
-    medium: '1-9 × 10-20',
-    hard: '10-25 × 2-9',
+    easy: "1-9 × 1-9",
+    medium: "1-9 × 10-20",
+    hard: "10-25 × 2-9",
   },
   division: {
-    easy: 'Basic facts',
-    medium: '20-90 ÷ 2-9',
-    hard: '10-99 ÷ 2-9',
+    easy: "Basic facts",
+    medium: "20-90 ÷ 2-9",
+    hard: "10-99 ÷ 2-9",
   },
 };
