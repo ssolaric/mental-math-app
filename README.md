@@ -75,4 +75,4 @@ See [CLAUDE.md](./CLAUDE.md) for detailed architecture and development guideline
 
 ## License
 
-MIT
+GPLv3
