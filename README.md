@@ -1,4 +1,5 @@
 # Mental Math Practice App
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d476675a-e572-4714-80f2-206a8d663c5f/deploy-status)](https://app.netlify.com/projects/mental-math-elementary/deploys)
 
 A kid-friendly math practice application for 5th grade students to practice arithmetic operations with real-time scoring, streak tracking, and progress persistence.
 
@@ -58,11 +59,7 @@ src/
 
 ## Deployment
 
-Built as a static site - can be deployed to:
-- Vercel (recommended)
-- Netlify
-- GitHub Pages
-- Any static hosting service
+Built as a static site, deployed to Netlify.
 
 ```bash
 npm run build    # Generates dist/ folder

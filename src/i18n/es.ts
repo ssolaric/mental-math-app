@@ -10,8 +10,8 @@ export const es: Translations = {
     questionNumber: 'Pregunta #{{number}}',
   },
   operations: {
-    addition: 'Suma',
-    subtraction: 'Resta',
+    addition: 'Adición',
+    subtraction: 'Sustracción',
     multiplication: 'Multiplicación',
     division: 'División',
   },
