@@ -1,3 +1,5 @@
+import type { Locale } from '../i18n/types';
+
 export type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division';
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
@@ -43,9 +45,10 @@ export interface GameProgress {
 }
 
 export interface Preferences {
-  soundEnabled: boolean;
-  showTimer: boolean;
-  defaultDifficulty: Difficulty;
+  language: Locale;
+  soundEnabled?: boolean;
+  showTimer?: boolean;
+  defaultDifficulty?: Difficulty;
 }
 
 export const STORAGE_KEYS = {

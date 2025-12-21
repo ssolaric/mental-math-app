@@ -1,6 +1,6 @@
 import { Plus, Minus, X, Divide } from 'lucide-react';
 import type { Operation, GameProgress } from '../types';
-import { OPERATION_LABELS } from '../constants/gameConfig';
+import { useTranslation } from '../i18n/TranslationContext';
 
 interface OperationSelectorProps {
   onSelectOperation: (operation: Operation) => void;
@@ -8,6 +8,8 @@ interface OperationSelectorProps {
 }
 
 export const OperationSelector = ({ onSelectOperation, gameProgress }: OperationSelectorProps) => {
+  const { t } = useTranslation();
+
   const operations: Array<{ type: Operation; icon: React.ReactNode; color: string }> = [
     { type: 'addition', icon: <Plus size={48} />, color: 'bg-green-500 hover:bg-green-600' },
     { type: 'subtraction', icon: <Minus size={48} />, color: 'bg-blue-500 hover:bg-blue-600' },
@@ -17,8 +19,8 @@ export const OperationSelector = ({ onSelectOperation, gameProgress }: Operation
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Mental Math Practice</h1>
-      <p className="text-xl text-gray-600 mb-12">Choose an operation to practice</p>
+      <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">{t('landing.title')}</h1>
+      <p className="text-xl text-gray-600 mb-12">{t('landing.chooseOperation')}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl">
         {operations.map(({ type, icon, color }) => {
@@ -35,11 +37,11 @@ export const OperationSelector = ({ onSelectOperation, gameProgress }: Operation
             >
               <div className="flex flex-col items-center">
                 {icon}
-                <h2 className="text-2xl font-bold mt-4">{OPERATION_LABELS[type]}</h2>
+                <h2 className="text-2xl font-bold mt-4">{t(`operations.${type}`)}</h2>
                 {stats.totalAttempts > 0 && (
                   <div className="mt-4 text-sm opacity-90">
-                    <p>{stats.correctAnswers}/{stats.totalAttempts} correct ({accuracy}%)</p>
-                    <p>Best score: {stats.bestScore}</p>
+                    <p>{stats.correctAnswers}/{stats.totalAttempts} {t('game.correct').toLowerCase()} ({accuracy}%)</p>
+                    <p>{t('stats.bestScore')}: {stats.bestScore}</p>
                   </div>
                 )}
               </div>

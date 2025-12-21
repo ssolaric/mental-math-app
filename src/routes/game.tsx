@@ -12,6 +12,7 @@ import { Feedback } from '../components/Feedback';
 import { ScoreBoard } from '../components/ScoreBoard';
 import { StreakIndicator } from '../components/StreakIndicator';
 import { Timer } from '../components/Timer';
+import { useTranslation } from '../i18n/TranslationContext';
 
 type GameSearch = {
   operation: Operation;
@@ -29,6 +30,7 @@ export const Route = createFileRoute('/game')({
 });
 
 function GamePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { operation, difficulty } = Route.useSearch();
   const [showFeedback, setShowFeedback] = useState(false);
@@ -102,13 +104,13 @@ function GamePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
+    <div className="flex flex-col min-h-screen bg-linear-to-br from-green-50 to-emerald-100 p-8">
       <div className="flex justify-between items-start mb-8">
         <button
           onClick={handleQuitSession}
           className="bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
         >
-          Quit
+          {t('common.quit')}
         </button>
       </div>
 

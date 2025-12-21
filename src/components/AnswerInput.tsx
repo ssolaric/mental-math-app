@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { isValidNumber } from '../utils/validators';
+import { useTranslation } from '../i18n/TranslationContext';
 
 interface AnswerInputProps {
   onSubmit: (answer: string) => void;
@@ -7,6 +8,7 @@ interface AnswerInputProps {
 }
 
 export const AnswerInput = ({ onSubmit, disabled = false }: AnswerInputProps) => {
+  const { t } = useTranslation();
   const [answer, setAnswer] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -40,7 +42,7 @@ export const AnswerInput = ({ onSubmit, disabled = false }: AnswerInputProps) =>
         value={answer}
         onChange={handleChange}
         disabled={disabled}
-        placeholder="Your answer"
+        placeholder={t('common.yourAnswer')}
         className="w-64 text-4xl text-center font-bold border-4 border-blue-500 rounded-xl p-4 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-gray-200 disabled:border-gray-400"
       />
       <button
@@ -48,7 +50,7 @@ export const AnswerInput = ({ onSubmit, disabled = false }: AnswerInputProps) =>
         disabled={!answer.trim() || disabled}
         className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold text-xl px-12 py-4 rounded-xl transition-colors disabled:cursor-not-allowed"
       >
-        Submit
+        {t('common.submit')}
       </button>
     </form>
   );
