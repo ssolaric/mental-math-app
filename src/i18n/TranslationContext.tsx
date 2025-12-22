@@ -29,7 +29,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
   const t = (key: string, params?: Record<string, string | number>): string => {
     const keys = key.split(".");
-    let value: any = translations[preferences.language];
+    let value: unknown = translations[preferences.language];
 
     for (const k of keys) {
       if (value && typeof value === "object" && k in value) {

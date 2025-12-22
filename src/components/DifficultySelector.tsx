@@ -19,7 +19,7 @@ export const DifficultySelector = ({
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-linear-to-br from-green-100 to-emerald-100 p-8">
       <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
         {t(`operations.${operation}`)}
       </h1>
@@ -31,6 +31,7 @@ export const DifficultySelector = ({
         {difficulties.map(({ level, color }) => (
           <button
             key={level}
+            type="button"
             onClick={() => onSelectDifficulty(level)}
             className={`${color} text-white p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 active:scale-95`}
           >

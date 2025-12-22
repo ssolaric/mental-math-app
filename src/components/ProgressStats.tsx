@@ -26,12 +26,13 @@ export const ProgressStats = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
+    <div className="flex flex-col min-h-screen bg-linear-to-br from-green-100 to-emerald-100 p-8">
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 text-center md:text-left">
           {t("stats.yourProgress")}
         </h1>
         <button
+          type="button"
           onClick={handleResetClick}
           className="bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-xl transition-colors flex items-center gap-2"
         >

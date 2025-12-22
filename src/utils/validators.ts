@@ -6,7 +6,7 @@ export const validateAnswer = (
 ): boolean => {
   const parsedAnswer = parseInt(userAnswer, 10);
 
-  if (isNaN(parsedAnswer)) {
+  if (Number.isNaN(parsedAnswer)) {
     return false;
   }
 
@@ -19,5 +19,5 @@ export const isValidNumber = (value: string): boolean => {
   }
 
   const num = parseInt(value, 10);
-  return !isNaN(num);
+  return !Number.isNaN(num);
 };

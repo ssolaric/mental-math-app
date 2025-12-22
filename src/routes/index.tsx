@@ -10,7 +10,7 @@ function LandingPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-100 to-emerald-100 p-8">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-linear-to-br from-green-100 to-emerald-100 p-8">
       <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8 text-center">
         {t("landing.title")}
       </h1>

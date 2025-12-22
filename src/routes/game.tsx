@@ -61,8 +61,7 @@ function GamePage() {
   useEffect(() => {
     startSession(operation, difficulty);
     startTimer();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount
+  }, [operation, difficulty]);
 
   const handleAnswerSubmit = (answer: string) => {
     if (!currentQuestion || !sessionData) return;
@@ -110,9 +109,10 @@ function GamePage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-linear-to-br from-green-50 to-emerald-100 p-8">
+    <div className="flex flex-col min-h-screen bg-linear-to-br from-green-100 to-emerald-100 p-8">
       <div className="flex justify-between items-start mb-8">
         <button
+          type="button"
           onClick={handleQuitSession}
           className="bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
         >
