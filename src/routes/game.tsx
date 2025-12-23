@@ -9,7 +9,6 @@ import { Timer } from "../components/Timer";
 import { useGameState } from "../hooks/useGameState";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useTimer } from "../hooks/useTimer";
-import { useTranslation } from "../i18n/TranslationContext";
 import type { Difficulty, Operation } from "../types";
 import { STORAGE_KEYS } from "../types";
 import { createEmptyGameProgress, updateGameProgress } from "../utils/storage";
@@ -30,7 +29,6 @@ export const Route = createFileRoute("/game")({
 });
 
 function GamePage() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const { operation, difficulty } = Route.useSearch();
   const [showFeedback, setShowFeedback] = useState(false);
@@ -116,7 +114,7 @@ function GamePage() {
           onClick={handleQuitSession}
           className="bg-red-500 hover:bg-red-600 text-white font-bold px-6 py-3 rounded-xl transition-colors"
         >
-          {t("common.quit")}
+          Salir
         </button>
       </div>
 

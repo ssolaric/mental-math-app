@@ -1,5 +1,3 @@
-import type { Locale } from "../i18n/types";
-
 export type Operation =
   | "addition"
   | "subtraction"
@@ -46,13 +44,6 @@ export interface GameProgress {
     multiplication: OperationStats;
     division: OperationStats;
   };
-}
-
-export interface Preferences {
-  language: Locale;
-  soundEnabled?: boolean;
-  showTimer?: boolean;
-  defaultDifficulty?: Difficulty;
 }
 
 export const STORAGE_KEYS = {
