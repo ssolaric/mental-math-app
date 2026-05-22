@@ -10,23 +10,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "@tanstack/react-router": "^1.141.8",
-    "@tanstack/react-router-devtools": "^1.141.8",
-    "lucide-react": "^0.562.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.18"
+    "@tailwindcss/vite": "^4.3.0",
+    "@tanstack/react-router": "^1.170.7",
+    "@tanstack/react-router-devtools": "^1.167.0",
+    "lucide-react": "^1.16.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.10",
-    "@tanstack/router-plugin": "^1.142.0",
+    "@biomejs/biome": "2.4.15",
+    "@tanstack/router-plugin": "^1.168.10",
     "@types/node": "^24.10.1",
-    "@types/react": "^19.2.5",
+    "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.1",
-    "globals": "^16.5.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.2.4"
+    "@vitejs/plugin-react": "^6.0.2",
+    "globals": "^17.6.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.14"
   }
 }
