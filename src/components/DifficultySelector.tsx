@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { Difficulty, Operation } from "../types";
 
 interface DifficultySelectorProps {
@@ -18,7 +19,7 @@ const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   hard: "Difícil",
 };
 
-const DIFFICULTY_DESCRIPTIONS: Record<Operation, Record<Difficulty, string>> = {
+const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, string>> = {
   addition: {
     easy: "1-9 + 1-9",
     medium: "10-99 + 10-99",
@@ -41,42 +42,75 @@ const DIFFICULTY_DESCRIPTIONS: Record<Operation, Record<Difficulty, string>> = {
   },
 };
 
+interface DifficultyMeta {
+  level: Difficulty;
+  bgClass: string;
+  hoverBgClass: string;
+}
+
+const DIFFICULTIES: ReadonlyArray<DifficultyMeta> = [
+  {
+    level: "easy",
+    bgClass: "bg-diff-easy",
+    hoverBgClass: "hover:brightness-95",
+  },
+  {
+    level: "medium",
+    bgClass: "bg-diff-medium",
+    hoverBgClass: "hover:brightness-95",
+  },
+  {
+    level: "hard",
+    bgClass: "bg-diff-hard",
+    hoverBgClass: "hover:brightness-95",
+  },
+];
+
 export const DifficultySelector = ({
   operation,
   onSelectDifficulty,
 }: DifficultySelectorProps) => {
-  const difficulties: Array<{ level: Difficulty; color: string }> = [
-    { level: "easy", color: "bg-emerald-500 hover:bg-emerald-600" },
-    { level: "medium", color: "bg-amber-500 hover:bg-amber-600" },
-    { level: "hard", color: "bg-red-500 hover:bg-red-600" },
-  ];
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-linear-to-br from-green-100 to-emerald-100 p-8">
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-        {OPERATION_LABELS[operation]}
-      </h1>
-      <p className="text-xl text-gray-600 mb-12">
-        Elige tu nivel de dificultad
-      </p>
+    <div className="min-h-screen bg-paper flex flex-col">
+      <header className="px-6 md:px-12 py-6">
+        <Link
+          to="/operation-select"
+          className="text-sm font-medium uppercase tracking-[0.18em] text-graphite-light hover:text-graphite-mid transition-colors"
+        >
+          ← {OPERATION_LABELS[operation]}
+        </Link>
+      </header>
 
-      <div className="flex flex-col gap-6 w-full max-w-md">
-        {difficulties.map(({ level, color }) => (
-          <button
-            key={level}
-            type="button"
-            onClick={() => onSelectDifficulty(level)}
-            className={`${color} text-white p-8 rounded-2xl shadow-lg transition-transform transform hover:scale-105 active:scale-95`}
-          >
-            <div className="flex flex-col items-center">
-              <h2 className="text-3xl font-bold">{DIFFICULTY_LABELS[level]}</h2>
-              <p className="mt-2 text-lg opacity-90">
-                {DIFFICULTY_DESCRIPTIONS[operation][level]}
-              </p>
-            </div>
-          </button>
-        ))}
-      </div>
+      <main className="flex-1 flex flex-col items-center justify-center px-6 pb-16">
+        <div className="w-full max-w-md">
+          <div className="mb-10">
+            <p className="text-sm font-medium uppercase tracking-[0.22em] text-graphite-light mb-3">
+              Paso 2 de 2
+            </p>
+            <h1 className="text-4xl md:text-5xl font-bold text-graphite">
+              Elige el nivel.
+            </h1>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            {DIFFICULTIES.map((diff) => (
+              <button
+                key={diff.level}
+                type="button"
+                onClick={() => onSelectDifficulty(diff.level)}
+                className={`group flex items-baseline justify-between gap-6 p-6 md:p-7 ${diff.bgClass} ${diff.hoverBgClass} rounded-lg transition-all text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-graphite focus-visible:ring-offset-2 focus-visible:ring-offset-paper`}
+              >
+                <span className="text-3xl md:text-4xl font-bold text-graphite">
+                  {DIFFICULTY_LABELS[diff.level]}
+                </span>
+                <span className="text-sm md:text-base font-mono font-medium text-graphite/75 tabular-nums">
+                  {DIFFICULTY_RANGES[operation][diff.level]}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

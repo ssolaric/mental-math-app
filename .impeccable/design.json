@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-22T00:00:00Z",
+  "title": "Design System: Mental Math Practice",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Burnished Amber",
+        "canonical": "oklch(0.83 0.15 78)",
+        "tonalRamp": [
+          "oklch(0.15 0.06 78)",
+          "oklch(0.27 0.09 78)",
+          "oklch(0.40 0.11 78)",
+          "oklch(0.55 0.13 78)",
+          "oklch(0.68 0.14 78)",
+          "oklch(0.77 0.16 78)",
+          "oklch(0.83 0.15 78)",
+          "oklch(0.93 0.07 78)"
+        ]
+      },
+      "arena-bg": {
+        "role": "neutral",
+        "displayName": "Deep Practice Green",
+        "canonical": "oklch(0.22 0.07 158)",
+        "tonalRamp": [
+          "oklch(0.15 0.05 158)",
+          "oklch(0.22 0.07 158)",
+          "oklch(0.30 0.07 158)",
+          "oklch(0.40 0.07 158)",
+          "oklch(0.52 0.06 158)",
+          "oklch(0.65 0.05 158)",
+          "oklch(0.80 0.03 158)",
+          "oklch(0.93 0.02 158)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Practice Paper",
+        "canonical": "oklch(0.97 0.012 158)",
+        "tonalRamp": [
+          "oklch(0.20 0.02 158)",
+          "oklch(0.32 0.025 158)",
+          "oklch(0.46 0.03 158)",
+          "oklch(0.60 0.03 158)",
+          "oklch(0.74 0.025 158)",
+          "oklch(0.86 0.018 158)",
+          "oklch(0.92 0.015 158)",
+          "oklch(0.97 0.012 158)"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Practice Graphite",
+        "canonical": "oklch(0.24 0.045 158)",
+        "tonalRamp": [
+          "oklch(0.15 0.045 158)",
+          "oklch(0.24 0.045 158)",
+          "oklch(0.34 0.045 158)",
+          "oklch(0.46 0.04 158)",
+          "oklch(0.55 0.038 158)",
+          "oklch(0.62 0.035 158)",
+          "oklch(0.78 0.025 158)",
+          "oklch(0.88 0.018 158)"
+        ]
+      },
+      "op-add": {
+        "role": "secondary",
+        "displayName": "Reps Emerald",
+        "canonical": "oklch(0.55 0.14 158)"
+      },
+      "op-sub": {
+        "role": "secondary",
+        "displayName": "Workshop Clay",
+        "canonical": "oklch(0.55 0.15 25)"
+      },
+      "op-mul": {
+        "role": "secondary",
+        "displayName": "Inked Plum",
+        "canonical": "oklch(0.5 0.17 305)"
+      },
+      "op-div": {
+        "role": "secondary",
+        "displayName": "Slate Cyan",
+        "canonical": "oklch(0.55 0.11 215)"
+      },
+      "diff-easy": {
+        "role": "tertiary",
+        "displayName": "Soft Sage",
+        "canonical": "oklch(0.83 0.09 158)"
+      },
+      "diff-medium": {
+        "role": "tertiary",
+        "displayName": "Soft Ochre",
+        "canonical": "oklch(0.82 0.12 75)"
+      },
+      "diff-hard": {
+        "role": "tertiary",
+        "displayName": "Soft Terra",
+        "canonical": "oklch(0.76 0.13 22)"
+      },
+      "wrong": {
+        "role": "destructive",
+        "displayName": "Correction Red",
+        "canonical": "oklch(0.62 0.14 28)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The arena math problem and oversized operation tile symbols. JetBrains Mono only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles on hub surfaces. Space Grotesk."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Operation labels, section headings, primary CTA text."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, descriptions, results lines."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Eyebrow labels, back-link affordances. Uppercase, wide tracking."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Inline data: score, timer, streak, percentages. JetBrains Mono with tabular figures."
+      }
+    },
+    "motion": [
+      {
+        "name": "ease-out-quart",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Default easing for state pulses and tier flares."
+      },
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Reveal animations: wrong-answer disclosure, round-results entrance."
+      },
+      {
+        "name": "correct-pulse",
+        "value": "220ms ease-out-quart, scale(1) -> scale(1.55) -> scale(1)",
+        "purpose": "Dot pulse on a correct answer."
+      },
+      {
+        "name": "streak-flare",
+        "value": "280ms ease-out-quart, scale + amber drop-shadow",
+        "purpose": "Flame icon flare when streak crosses 3, 5, or 10."
+      },
+      {
+        "name": "score-bump",
+        "value": "320ms ease-out-quart, translateY + color shift to accent",
+        "purpose": "Score numeral bump on correct."
+      },
+      {
+        "name": "reveal",
+        "value": "260ms ease-out-expo, translateY(6px) + opacity",
+        "purpose": "Wrong-answer reveal, results screen entrance."
+      }
+    ],
+    "shadows": [],
+    "breakpoints": [
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single filled-button shape in the system. Amber on graphite text. Lives on hub surfaces (Comenzar, Otra ronda).",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Comenzar</button>",
+      "css": ".ds-btn-primary { background: var(--color-accent); color: var(--color-graphite); font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; font-weight: 700; font-size: 1.125rem; letter-spacing: 0.025em; padding: 1rem 2rem; border: none; border-radius: 0.375rem; cursor: pointer; transition: background-color 0.15s cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-primary:hover { background: var(--color-accent-hover); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-accent); }"
+    },
+    {
+      "name": "Text Link",
+      "kind": "button",
+      "refersTo": "text-link",
+      "description": "The default secondary affordance. Underlined text in graphite-mid, no button chrome. Used for back-links, Cambiar nivel, Ver progreso, Reiniciar.",
+      "html": "<a class=\"ds-text-link\" href=\"#\">Ver progreso</a>",
+      "css": ".ds-text-link { color: var(--color-graphite-mid); font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; font-weight: 500; font-size: 1rem; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--color-paper-border); transition: color 0.15s cubic-bezier(0.25, 1, 0.5, 1), text-decoration-color 0.15s cubic-bezier(0.25, 1, 0.5, 1); } .ds-text-link:hover { color: var(--color-graphite); text-decoration-color: var(--color-graphite); }"
+    },
+    {
+      "name": "Operation Tile",
+      "kind": "card",
+      "description": "A selector tile. Hairline-bordered card with a large operation symbol in identity color. Hover fills with a 14% tint of the identity color.",
+      "html": "<button class=\"ds-op-tile\" type=\"button\"><span class=\"ds-op-tile__symbol\" aria-hidden=\"true\">+</span><span class=\"ds-op-tile__label\">Adición</span><span class=\"ds-op-tile__meta\">Sin jugar aún</span></button>",
+      "css": ".ds-op-tile { display: flex; flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 1.5rem; background: var(--color-paper); border: 1px solid var(--color-paper-border); border-radius: 0.5rem; text-align: left; cursor: pointer; transition: background-color 0.15s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.15s cubic-bezier(0.25, 1, 0.5, 1); font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-op-tile:hover { background: oklch(0.55 0.14 158 / 0.14); border-color: var(--color-op-add); } .ds-op-tile:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-accent); } .ds-op-tile__symbol { font-family: 'JetBrains Mono', ui-monospace, monospace; font-weight: 700; font-size: 4.5rem; line-height: 1; color: var(--color-op-add); font-variant-numeric: tabular-nums; } .ds-op-tile__label { font-size: 1.25rem; font-weight: 600; color: var(--color-graphite); } .ds-op-tile__meta { font-size: 0.875rem; color: var(--color-graphite-light); }"
+    },
+    {
+      "name": "Difficulty Button",
+      "kind": "button",
+      "description": "Filled button on the difficulty selector. Inline horizontal layout: label on the left, JetBrains Mono range on the right. Shown in the Easy/Sage variant; Medium and Hard use the same shape with diff-medium / diff-hard fills.",
+      "html": "<button class=\"ds-diff-btn\" type=\"button\"><span class=\"ds-diff-btn__label\">Fácil</span><span class=\"ds-diff-btn__range\">1-9 + 1-9</span></button>",
+      "css": ".ds-diff-btn { display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 1.75rem; background: var(--color-diff-easy); border: none; border-radius: 0.5rem; text-align: left; cursor: pointer; width: 100%; transition: filter 0.15s cubic-bezier(0.25, 1, 0.5, 1); } .ds-diff-btn:hover { filter: brightness(0.95); } .ds-diff-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-graphite); } .ds-diff-btn__label { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; font-size: 1.875rem; font-weight: 700; color: var(--color-graphite); } .ds-diff-btn__range { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 0.9rem; font-weight: 500; color: oklch(0.24 0.045 158 / 0.75); font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Arena Input",
+      "kind": "input",
+      "description": "Borderless numeric input in the arena. Single amber bottom rule that brightens on focus. JetBrains Mono, tabular figures, amber caret.",
+      "html": "<input class=\"ds-arena-input\" type=\"text\" inputmode=\"numeric\" placeholder=\"\" aria-label=\"Tu respuesta\" value=\"42\" />",
+      "css": ".ds-arena-input { width: 16rem; padding: 0 0 0.75rem 0; background: transparent; border: none; border-bottom: 1px solid var(--color-accent-soft); font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 3.75rem; font-weight: 700; text-align: center; color: var(--color-ink); caret-color: var(--color-accent); font-variant-numeric: tabular-nums; transition: border-color 0.15s cubic-bezier(0.25, 1, 0.5, 1); } .ds-arena-input:focus { outline: none; border-bottom-color: var(--color-accent); } .ds-arena-input:disabled { color: var(--color-ink-subtle); border-bottom-color: oklch(0.56 0.035 158 / 0.4); }"
+    },
+    {
+      "name": "Progress Dots",
+      "kind": "custom",
+      "description": "Ten 10px circles representing positions in a round. States: pending (arena-bg-elev fill), current (1px amber ring on arena-bg-soft), correct (amber fill), wrong (correction-red fill).",
+      "html": "<div class=\"ds-progress\" role=\"group\" aria-label=\"Progreso: 4 de 10\"><span class=\"ds-progress__dot ds-progress__dot--correct\"></span><span class=\"ds-progress__dot ds-progress__dot--correct\"></span><span class=\"ds-progress__dot ds-progress__dot--correct\"></span><span class=\"ds-progress__dot ds-progress__dot--wrong\"></span><span class=\"ds-progress__dot ds-progress__dot--current\"></span><span class=\"ds-progress__dot ds-progress__dot--pending\"></span><span class=\"ds-progress__dot ds-progress__dot--pending\"></span><span class=\"ds-progress__dot ds-progress__dot--pending\"></span><span class=\"ds-progress__dot ds-progress__dot--pending\"></span><span class=\"ds-progress__dot ds-progress__dot--pending\"></span></div>",
+      "css": ".ds-progress { display: flex; align-items: center; gap: 0.5rem; background: var(--color-arena-bg); padding: 1rem; border-radius: 0.375rem; } .ds-progress__dot { width: 0.625rem; height: 0.625rem; border-radius: 9999px; flex-shrink: 0; } .ds-progress__dot--pending { background: var(--color-arena-bg-elev); } .ds-progress__dot--current { background: var(--color-arena-bg-soft); box-shadow: inset 0 0 0 1px var(--color-accent); } .ds-progress__dot--correct { background: var(--color-accent); } .ds-progress__dot--wrong { background: var(--color-wrong); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Practice Room",
+    "overview": "A practice room is small, well-lit, and uncluttered. There is one thing to do here and the room makes that obvious. The system is organized around a deliberate spatial story: the selectors and stats are the hub (warm paper, dark ink, calm), and the game arena is the stage (deep saturated emerald, light ink, one amber accent). Moving from the hub into the arena is meant to feel like dimming the room lights for the real work.",
+    "keyCharacteristics": [
+      "A single shared accent (amber) carries every primary action and every reward beat",
+      "Two surfaces, two postures: warm paper for the hub, deep emerald for the arena",
+      "Math glyphs and digits live in a monospaced display font; everything else is in a geometric grotesk",
+      "One CTA per screen. Secondary actions are text links, not second buttons",
+      "Motion is short, exponential, and respects prefers-reduced-motion"
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "Burnished Amber is the only primary-action color in the system. If you find yourself reaching for a second accent, you are designing a different system.", "section": "colors" },
+      { "name": "The Color-Means-One-Thing Rule", "body": "Operation identity colors appear only on operation selectors. Difficulty colors appear only on the difficulty selector. The destructive red appears only on wrong answers and destructive confirms. Amber appears only on primary CTAs and reward beats.", "section": "colors" },
+      { "name": "The Surface Mirror Rule", "body": "Hub and arena are not different palettes; they are the same emerald hue inverted in lightness. Paper at L=0.97 mirrors Arena at L=0.22.", "section": "colors" },
+      { "name": "The Mono-for-Data Rule", "body": "Every digit the kid types, reads as a result, or sees as a count uses JetBrains Mono. Every word, label, and prose sentence uses Space Grotesk.", "section": "typography" },
+      { "name": "The Tabular-Figures Rule", "body": "All digits use tabular-nums. The score, the timer, and the streak count must never jump width as values change.", "section": "typography" },
+      { "name": "The Weight-Polarization Rule", "body": "Use 400, 500, or 700. Skip 600 except for Title. Adjacent weights are too close to read as hierarchy.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Cards do not float. Surfaces sit directly on the page. If you reach for box-shadow to give something presence, you are solving the wrong problem.", "section": "elevation" },
+      { "name": "The No-Glass Rule", "body": "No glassmorphism. Ever. The arena background is opaque emerald; the paper hub is opaque tinted white.", "section": "elevation" },
+      { "name": "The One-CTA Rule", "body": "Every screen has exactly one filled primary button. The second action, if any, is a text link.", "section": "components" },
+      { "name": "The No-Cards Rule", "body": "Lists are dividers, not cards. Cards appear only when the content is genuinely a discrete object that must be selected or acted on.", "section": "components" }
+    ],
+    "dos": [
+      "Do use Burnished Amber as the single primary-action color across every surface.",
+      "Do invert the same emerald hue family between surfaces: Practice Paper for the hub, Deep Practice Green for the arena.",
+      "Do wrap every digit in JetBrains Mono with tabular-nums.",
+      "Do keep operation identity colors scoped to the operation selector.",
+      "Do use ease-out-quart or ease-out-expo for every transition, 220 to 320ms.",
+      "Do respect prefers-reduced-motion; all four named animations degrade to instant state changes.",
+      "Do put a back link at the top-left of every non-root hub surface in Label type."
+    ],
+    "donts": [
+      "Don't use navy or blue gradient backgrounds. This system is emerald, never blue.",
+      "Don't use the hero-metric template (big number, small label, supporting stats, gradient accent).",
+      "Don't use identical card grids of icon plus heading plus text.",
+      "Don't use Comic Sans, primary-rainbow palettes, balloon-pop celebrations, or clip-art mascots.",
+      "Don't introduce XP bars, coin/gem currencies, slot-machine reward FX, or daily-streak guilt.",
+      "Don't use Google-Classroom beige or stock illustrations of smiling children at laptops.",
+      "Don't use border-left or border-right greater than 1px as a colored side-stripe.",
+      "Don't use background-clip text with a gradient for headline emphasis.",
+      "Don't use glassmorphism, backdrop-filter blur, or translucent layered cards.",
+      "Don't use bounce or elastic easing. Exponential ease-out only.",
+      "Don't use pure black or white. Every neutral is tinted toward the brand emerald hue.",
+      "Don't use box-shadow for ambient elevation.",
+      "Don't ship more than one filled button per screen.",
+      "Don't use em dashes. Use commas, colons, semicolons, periods, or parentheses.",
+      "Don't restate headings in body copy."
+    ]
+  }
+}
