@@ -18,10 +18,10 @@ Mental Math Practice App - A TypeScript/React application for 5th grade students
 ## Development Commands
 
 ```bash
-npm run dev      # Start development server (usually runs on port 5173 or 5174)
-npm run build    # TypeScript check + production build
-npm run lint     # Run ESLint
-npm run preview  # Preview production build locally
+pnpm run dev      # Start development server (usually runs on port 5173 or 5174)
+pnpm run build    # TypeScript check + production build
+pnpm run lint     # Run ESLint
+pnpm run preview  # Preview production build locally
 ```
 
 ## TypeScript Import Requirements

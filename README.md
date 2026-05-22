@@ -16,16 +16,16 @@ A kid-friendly math practice application for 5th grade students to practice arit
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Run development server
-npm run dev
+pnpm run dev
 
 # Build for production
-npm run build
+pnpm run build
 
 # Preview production build
-npm run preview
+pnpm run preview
 ```
 
 ## Tech Stack
@@ -62,7 +62,7 @@ src/
 Built as a static site, deployed to Netlify.
 
 ```bash
-npm run build    # Generates dist/ folder
+pnpm run build    # Generates dist/ folder
 # Deploy the dist/ folder to your hosting service
 ```
 
