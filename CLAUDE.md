@@ -142,3 +142,17 @@ Game progress is managed locally within routes using the `useLocalStorage` hook.
 - Kid-friendly: large buttons, bright colors, clear visual feedback
 - Responsive: uses md: breakpoints for desktop layouts
 - Color scheme: operation buttons have distinct colors (green/blue/teal/orange), streak indicator changes color based on streak level
+
+## Agent skills
+
+### Issue tracker
+
+Issues live as local markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context layout: `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.

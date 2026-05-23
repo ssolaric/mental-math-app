@@ -13,18 +13,6 @@ export interface Question {
   difficulty: Difficulty;
 }
 
-export interface SessionData {
-  operation: Operation;
-  difficulty: Difficulty;
-  questionsAnswered: number;
-  correctAnswers: number;
-  currentStreak: number;
-  bestStreak: number;
-  score: number;
-  startTime: number;
-  lastQuestionTime: number;
-}
-
 export interface OperationStats {
   totalAttempts: number;
   correctAnswers: number;
@@ -51,19 +39,3 @@ export const STORAGE_KEYS = {
   CURRENT_SESSION: "mental-math-session",
   PREFERENCES: "mental-math-preferences",
 } as const;
-
-export type Screen =
-  | "landing"
-  | "operation-select"
-  | "difficulty-select"
-  | "game"
-  | "summary"
-  | "stats";
-
-export interface GameState {
-  screen: Screen;
-  selectedOperation: Operation | null;
-  selectedDifficulty: Difficulty | null;
-  currentQuestion: Question | null;
-  sessionData: SessionData | null;
-}

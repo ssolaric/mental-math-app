@@ -1,4 +1,4 @@
-export type DotResult = "correct" | "wrong";
+import type { DotResult } from "../../hooks/useRound";
 
 interface ProgressDotsProps {
   results: ReadonlyArray<DotResult>;

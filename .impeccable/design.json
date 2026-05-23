@@ -164,9 +164,7 @@
       }
     ],
     "shadows": [],
-    "breakpoints": [
-      { "name": "md", "value": "768px" }
-    ]
+    "breakpoints": [{ "name": "md", "value": "768px" }]
   },
   "components": [
     {
@@ -225,16 +223,56 @@
       "Motion is short, exponential, and respects prefers-reduced-motion"
     ],
     "rules": [
-      { "name": "The One Accent Rule", "body": "Burnished Amber is the only primary-action color in the system. If you find yourself reaching for a second accent, you are designing a different system.", "section": "colors" },
-      { "name": "The Color-Means-One-Thing Rule", "body": "Operation identity colors appear only on operation selectors. Difficulty colors appear only on the difficulty selector. The destructive red appears only on wrong answers and destructive confirms. Amber appears only on primary CTAs and reward beats.", "section": "colors" },
-      { "name": "The Surface Mirror Rule", "body": "Hub and arena are not different palettes; they are the same emerald hue inverted in lightness. Paper at L=0.97 mirrors Arena at L=0.22.", "section": "colors" },
-      { "name": "The Mono-for-Data Rule", "body": "Every digit the kid types, reads as a result, or sees as a count uses JetBrains Mono. Every word, label, and prose sentence uses Space Grotesk.", "section": "typography" },
-      { "name": "The Tabular-Figures Rule", "body": "All digits use tabular-nums. The score, the timer, and the streak count must never jump width as values change.", "section": "typography" },
-      { "name": "The Weight-Polarization Rule", "body": "Use 400, 500, or 700. Skip 600 except for Title. Adjacent weights are too close to read as hierarchy.", "section": "typography" },
-      { "name": "The Flat-By-Default Rule", "body": "Cards do not float. Surfaces sit directly on the page. If you reach for box-shadow to give something presence, you are solving the wrong problem.", "section": "elevation" },
-      { "name": "The No-Glass Rule", "body": "No glassmorphism. Ever. The arena background is opaque emerald; the paper hub is opaque tinted white.", "section": "elevation" },
-      { "name": "The One-CTA Rule", "body": "Every screen has exactly one filled primary button. The second action, if any, is a text link.", "section": "components" },
-      { "name": "The No-Cards Rule", "body": "Lists are dividers, not cards. Cards appear only when the content is genuinely a discrete object that must be selected or acted on.", "section": "components" }
+      {
+        "name": "The One Accent Rule",
+        "body": "Burnished Amber is the only primary-action color in the system. If you find yourself reaching for a second accent, you are designing a different system.",
+        "section": "colors"
+      },
+      {
+        "name": "The Color-Means-One-Thing Rule",
+        "body": "Operation identity colors appear only on operation selectors. Difficulty colors appear only on the difficulty selector. The destructive red appears only on wrong answers and destructive confirms. Amber appears only on primary CTAs and reward beats.",
+        "section": "colors"
+      },
+      {
+        "name": "The Surface Mirror Rule",
+        "body": "Hub and arena are not different palettes; they are the same emerald hue inverted in lightness. Paper at L=0.97 mirrors Arena at L=0.22.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono-for-Data Rule",
+        "body": "Every digit the kid types, reads as a result, or sees as a count uses JetBrains Mono. Every word, label, and prose sentence uses Space Grotesk.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular-Figures Rule",
+        "body": "All digits use tabular-nums. The score, the timer, and the streak count must never jump width as values change.",
+        "section": "typography"
+      },
+      {
+        "name": "The Weight-Polarization Rule",
+        "body": "Use 400, 500, or 700. Skip 600 except for Title. Adjacent weights are too close to read as hierarchy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Cards do not float. Surfaces sit directly on the page. If you reach for box-shadow to give something presence, you are solving the wrong problem.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No-Glass Rule",
+        "body": "No glassmorphism. Ever. The arena background is opaque emerald; the paper hub is opaque tinted white.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One-CTA Rule",
+        "body": "Every screen has exactly one filled primary button. The second action, if any, is a text link.",
+        "section": "components"
+      },
+      {
+        "name": "The No-Cards Rule",
+        "body": "Lists are dividers, not cards. Cards appear only when the content is genuinely a discrete object that must be selected or acted on.",
+        "section": "components"
+      }
     ],
     "dos": [
       "Do use Burnished Amber as the single primary-action color across every surface.",

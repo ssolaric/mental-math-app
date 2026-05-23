@@ -1,33 +1,20 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArenaInput } from "../components/arena/ArenaInput";
 import { ArenaQuestion } from "../components/arena/ArenaQuestion";
 import { ArenaStats } from "../components/arena/ArenaStats";
-import { type DotResult, ProgressDots } from "../components/arena/ProgressDots";
+import { ProgressDots } from "../components/arena/ProgressDots";
 import { RoundResults } from "../components/arena/RoundResults";
-import { useGameState } from "../hooks/useGameState";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { useTimer } from "../hooks/useTimer";
+import { useRound } from "../hooks/useRound";
 import type { Difficulty, Operation } from "../types";
 import { STORAGE_KEYS } from "../types";
 import { createEmptyGameProgress, updateGameProgress } from "../utils/storage";
-
-const ROUND_LENGTH = 10;
-const STREAK_TIERS = [3, 5, 10] as const;
 
 type GameSearch = {
   operation: Operation;
   difficulty: Difficulty;
 };
-
-type FeedbackState = "idle" | "wrong";
-
-interface RoundSummary {
-  correct: number;
-  total: number;
-  bestStreak: number;
-  elapsedMs: number;
-}
 
 export const Route = createFileRoute("/game")({
   validateSearch: (search: Record<string, unknown>): GameSearch => ({
@@ -47,180 +34,107 @@ function GamePage() {
   );
 
   const {
+    status,
     currentQuestion,
-    sessionData,
-    startSession,
-    submitAnswer,
-    nextQuestion,
-    endSession,
-  } = useGameState();
-
-  const {
-    elapsedTime,
-    start: startTimer,
-    pause: pauseTimer,
-    reset: resetTimer,
-  } = useTimer();
+    results,
+    score,
+    streak,
+    elapsedMs,
+    lastSubmit,
+    summary,
+    submit,
+    advance,
+    restart,
+  } = useRound(operation, difficulty);
 
   const [answer, setAnswer] = useState("");
-  const [feedback, setFeedback] = useState<FeedbackState>("idle");
-  const [results, setResults] = useState<ReadonlyArray<DotResult>>([]);
   const [justAnsweredIndex, setJustAnsweredIndex] = useState<number | null>(
     null,
   );
-  const [wrongReveal, setWrongReveal] = useState<number | null>(null);
   const [scoreBumpKey, setScoreBumpKey] = useState(0);
   const [streakFlareKey, setStreakFlareKey] = useState(0);
-  const [roundSummary, setRoundSummary] = useState<RoundSummary | null>(null);
 
-  const prevStreakRef = useRef(0);
-  const finalElapsedRef = useRef(0);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: session lifecycle is keyed to route params, not hook identities
+  // animation triggers fed by lastSubmit
   useEffect(() => {
-    startSession(operation, difficulty);
-    startTimer();
-    return () => {
-      resetTimer();
-    };
-  }, [operation, difficulty]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: streak tier crossing keyed to currentStreak only
-  useEffect(() => {
-    if (!sessionData) return;
-    const prev = prevStreakRef.current;
-    const curr = sessionData.currentStreak;
-    if (STREAK_TIERS.some((t) => prev < t && curr >= t)) {
+    if (!lastSubmit) return;
+    const index = results.length - 1;
+    setJustAnsweredIndex(index);
+    const id = window.setTimeout(() => setJustAnsweredIndex(null), 240);
+    if (lastSubmit.correct) {
+      setScoreBumpKey((k) => k + 1);
+      setAnswer("");
+    }
+    if (lastSubmit.crossedTier !== null) {
       setStreakFlareKey((k) => k + 1);
     }
-    prevStreakRef.current = curr;
-  }, [sessionData?.currentStreak]);
+    return () => window.clearTimeout(id);
+  }, [lastSubmit, results.length]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: advanceFromWrong closes over latest state via the same render
+  // biome-ignore lint/correctness/useExhaustiveDependencies: fires once when summary transitions to non-null; reading current gameProgress at that instant is intentional
   useEffect(() => {
-    if (feedback !== "wrong") return;
+    if (!summary) return;
+    const avgTime = summary.total > 0 ? summary.elapsedMs / summary.total : 0;
+    setGameProgress(
+      updateGameProgress(
+        gameProgress,
+        operation,
+        summary.correct,
+        summary.total,
+        summary.score,
+        summary.bestStreak,
+        avgTime,
+      ),
+    );
+  }, [summary]);
+
+  // any-digit-during-wrong: prefill next input + advance
+  useEffect(() => {
+    if (status !== "wrong") return;
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.tagName === "INPUT") return;
       if (e.key === "Enter") {
         e.preventDefault();
-        advanceFromWrong("");
+        setAnswer("");
+        advance();
       } else if (/^[0-9]$/.test(e.key)) {
         e.preventDefault();
-        advanceFromWrong(e.key);
+        setAnswer(e.key);
+        advance();
       }
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, [feedback, results.length]);
-
-  // biome-ignore lint/correctness/useExhaustiveDependencies: finalize fires once per round when both gates clear
-  useEffect(() => {
-    if (roundSummary) return;
-    if (results.length < ROUND_LENGTH) return;
-    if (feedback !== "idle") return;
-    if (!sessionData) return;
-
-    finalElapsedRef.current = elapsedTime;
-    pauseTimer();
-
-    const finalSession = endSession();
-    if (!finalSession) return;
-
-    const avgTime =
-      finalSession.questionsAnswered > 0
-        ? (Date.now() - finalSession.startTime) / finalSession.questionsAnswered
-        : 0;
-
-    setGameProgress(
-      updateGameProgress(
-        gameProgress,
-        operation,
-        finalSession.correctAnswers,
-        finalSession.questionsAnswered,
-        finalSession.score,
-        finalSession.bestStreak,
-        avgTime,
-      ),
-    );
-
-    setRoundSummary({
-      correct: finalSession.correctAnswers,
-      total: finalSession.questionsAnswered,
-      bestStreak: finalSession.bestStreak,
-      elapsedMs: finalElapsedRef.current,
-    });
-  }, [results.length, feedback]);
-
-  const advanceFromWrong = (prefill: string) => {
-    setFeedback("idle");
-    setWrongReveal(null);
-    setAnswer(prefill);
-    if (results.length < ROUND_LENGTH) {
-      nextQuestion();
-    }
-  };
+  }, [status, advance]);
 
   const handleSubmit = () => {
-    if (!currentQuestion || !sessionData) return;
-    if (feedback === "wrong" || roundSummary) return;
-    if (!answer.trim()) return;
-
-    const timeInSeconds = Math.floor(elapsedTime / 1000);
-    const isCorrect = submitAnswer(answer, timeInSeconds);
-    const index = results.length;
-    const next: ReadonlyArray<DotResult> = [
-      ...results,
-      isCorrect ? "correct" : "wrong",
-    ];
-    setResults(next);
-    setJustAnsweredIndex(index);
-    window.setTimeout(() => setJustAnsweredIndex(null), 240);
-
-    if (isCorrect) {
-      setScoreBumpKey((k) => k + 1);
-      setAnswer("");
-      if (next.length < ROUND_LENGTH) {
-        nextQuestion();
-      }
-    } else {
-      setWrongReveal(currentQuestion.correctAnswer);
-      setFeedback("wrong");
-    }
+    if (status !== "playing" || !answer.trim()) return;
+    submit(answer);
   };
 
   const handleExitClick = () => {
-    pauseTimer();
-    endSession();
     navigate({ to: "/" });
   };
 
   const handlePlayAgain = () => {
-    prevStreakRef.current = 0;
-    finalElapsedRef.current = 0;
-    setResults([]);
-    setFeedback("idle");
-    setWrongReveal(null);
     setAnswer("");
     setJustAnsweredIndex(null);
-    setRoundSummary(null);
-    resetTimer();
-    startSession(operation, difficulty);
-    startTimer();
+    restart();
   };
 
   const handleChangeLevel = () => {
-    pauseTimer();
-    endSession();
     navigate({ to: "/difficulty-select", search: { operation } });
   };
+
+  const wrongReveal =
+    status === "wrong" && lastSubmit ? lastSubmit.correctAnswer : null;
 
   return (
     <div className="min-h-screen bg-arena-bg text-ink flex flex-col">
       <header className="flex items-center justify-between px-6 md:px-10 py-5">
         <ProgressDots
           results={results}
-          total={ROUND_LENGTH}
+          total={10}
           justAnsweredIndex={justAnsweredIndex}
         />
         <button
@@ -233,29 +147,26 @@ function GamePage() {
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 -mt-8">
-        {roundSummary ? (
+        {summary ? (
           <RoundResults
-            correct={roundSummary.correct}
-            total={roundSummary.total}
-            bestStreak={roundSummary.bestStreak}
-            elapsedMs={roundSummary.elapsedMs}
+            correct={summary.correct}
+            total={summary.total}
+            bestStreak={summary.bestStreak}
+            elapsedMs={summary.elapsedMs}
             onPlayAgain={handlePlayAgain}
             onChangeLevel={handleChangeLevel}
           />
         ) : currentQuestion ? (
           <div className="flex flex-col items-center gap-16 md:gap-20">
-            <ArenaQuestion
-              question={currentQuestion}
-              reveal={feedback === "wrong" ? wrongReveal : null}
-            />
+            <ArenaQuestion question={currentQuestion} reveal={wrongReveal} />
             <div className="flex flex-col items-center gap-3">
               <ArenaInput
                 value={answer}
                 onChange={setAnswer}
                 onSubmit={handleSubmit}
-                disabled={feedback === "wrong"}
+                disabled={status === "wrong"}
               />
-              {feedback === "wrong" && (
+              {status === "wrong" && (
                 <p className="text-sm text-ink-subtle anim-reveal pt-2">
                   Enter para continuar
                 </p>
@@ -266,12 +177,12 @@ function GamePage() {
       </main>
 
       <footer className="px-6 md:px-10 py-6">
-        {sessionData && !roundSummary && (
+        {!summary && (
           <div className="max-w-md mx-auto">
             <ArenaStats
-              score={sessionData.score}
-              currentStreak={sessionData.currentStreak}
-              elapsedTime={elapsedTime}
+              score={score}
+              currentStreak={streak}
+              elapsedTime={elapsedMs}
               scoreBumpKey={scoreBumpKey}
               streakFlareKey={streakFlareKey}
             />
