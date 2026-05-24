@@ -5,11 +5,9 @@ import { ArenaQuestion } from "../components/arena/ArenaQuestion";
 import { ArenaStats } from "../components/arena/ArenaStats";
 import { ProgressDots } from "../components/arena/ProgressDots";
 import { RoundResults } from "../components/arena/RoundResults";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useRound } from "../hooks/useRound";
+import { recordRound } from "../progress/progressStore";
 import type { Difficulty, Operation } from "../types";
-import { STORAGE_KEYS } from "../types";
-import { createEmptyGameProgress, updateGameProgress } from "../utils/storage";
 
 type GameSearch = {
   operation: Operation;
@@ -27,11 +25,6 @@ export const Route = createFileRoute("/game")({
 function GamePage() {
   const navigate = useNavigate();
   const { operation, difficulty } = Route.useSearch();
-
-  const [gameProgress, setGameProgress] = useLocalStorage(
-    STORAGE_KEYS.GAME_PROGRESS,
-    createEmptyGameProgress(),
-  );
 
   const {
     status,
@@ -70,22 +63,11 @@ function GamePage() {
     return () => window.clearTimeout(id);
   }, [lastSubmit, results.length]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: fires once when summary transitions to non-null; reading current gameProgress at that instant is intentional
+  // persist progress when the round finishes
   useEffect(() => {
     if (!summary) return;
-    const avgTime = summary.total > 0 ? summary.elapsedMs / summary.total : 0;
-    setGameProgress(
-      updateGameProgress(
-        gameProgress,
-        operation,
-        summary.correct,
-        summary.total,
-        summary.score,
-        summary.bestStreak,
-        avgTime,
-      ),
-    );
-  }, [summary]);
+    recordRound(operation, summary);
+  }, [summary, operation]);
 
   // any-digit-during-wrong: prefill next input + advance
   useEffect(() => {

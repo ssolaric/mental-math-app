@@ -1,9 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { OperationSelector } from "../components/OperationSelector";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useGameProgress } from "../progress/useGameProgress";
 import type { Operation } from "../types";
-import { STORAGE_KEYS } from "../types";
-import { createEmptyGameProgress } from "../utils/storage";
 
 export const Route = createFileRoute("/operation-select")({
   component: OperationSelectPage,
@@ -11,10 +9,7 @@ export const Route = createFileRoute("/operation-select")({
 
 function OperationSelectPage() {
   const navigate = useNavigate();
-  const [gameProgress] = useLocalStorage(
-    STORAGE_KEYS.GAME_PROGRESS,
-    createEmptyGameProgress(),
-  );
+  const gameProgress = useGameProgress();
 
   const handleSelectOperation = (operation: Operation) => {
     navigate({

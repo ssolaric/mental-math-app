@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { calculatePoints } from "../constants/gameConfig";
+import { score } from "../scoring";
 import type { Difficulty, Operation, Question } from "../types";
 import { generateQuestion } from "../utils/mathGenerator";
 import { validateAnswer } from "../utils/validators";
@@ -117,7 +117,7 @@ export const useRound = (
           (Date.now() - s.startTimeMs) / 1000,
         );
         const pointsEarned = isCorrect
-          ? calculatePoints(
+          ? score(
               s.currentQuestion.difficulty,
               newStreak,
               elapsedSecondsForQuestion,

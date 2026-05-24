@@ -33,9 +33,3 @@ export interface GameProgress {
     division: OperationStats;
   };
 }
-
-export const STORAGE_KEYS = {
-  GAME_PROGRESS: "mental-math-progress",
-  CURRENT_SESSION: "mental-math-session",
-  PREFERENCES: "mental-math-preferences",
-} as const;

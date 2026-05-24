@@ -1,4 +1,4 @@
-import { DIFFICULTY_RANGES } from "../constants/gameConfig";
+import { DIFFICULTY_RANGES } from "../constants/difficulty";
 import type { Difficulty, Operation, Question } from "../types";
 
 const randomInt = (min: number, max: number): number => {

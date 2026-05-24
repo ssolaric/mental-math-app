@@ -1,4 +1,4 @@
-import { OPERATION_SYMBOLS } from "../../constants/gameConfig";
+import { OPERATION_SYMBOLS } from "../../constants/operationSymbols";
 import type { Question } from "../../types";
 
 interface ArenaQuestionProps {
