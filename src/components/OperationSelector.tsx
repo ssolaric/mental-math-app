@@ -101,7 +101,7 @@ export const OperationSelector = ({
                     <span className="text-xl md:text-2xl font-semibold text-graphite">
                       {op.label}
                     </span>
-                    <span className="text-sm text-graphite-light min-h-[1.25rem]">
+                    <span className="text-sm text-graphite-light min-h-5">
                       {played ? (
                         <>
                           <span className="font-mono tabular-nums">
