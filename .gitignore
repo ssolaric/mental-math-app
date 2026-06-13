@@ -30,3 +30,9 @@ dist-ssr
 architecture-review*.html
 
 .playwright-mcp
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
