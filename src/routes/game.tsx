@@ -24,7 +24,9 @@ function GamePage() {
       operation={operation}
       difficulty={difficulty}
       onExit={() => navigate({ to: "/" })}
-      onChangeLevel={() => navigate({ to: "/difficulty-select", search: { operation } })}
+      onChangeLevel={() =>
+        navigate({ to: "/difficulty-select", search: { operation } })
+      }
     />
   );
 }
