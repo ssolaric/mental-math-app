@@ -32,5 +32,6 @@ export const timesNine: Strategy = {
     medium: "10-50 × 9",
     hard: "10-99 × 9",
   },
+  example: "7 × 9 = 63",
   generate: generateTimesNine,
 };

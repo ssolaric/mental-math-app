@@ -59,6 +59,11 @@ interface DifficultyMeta {
   level: Difficulty;
   bgClass: string;
   hoverBgClass: string;
+  /**
+   * Range-label color. Lighter tiles use graphite at 75% opacity (passes AA);
+   * the darker Experto fill needs full-strength graphite to clear 4.5:1.
+   */
+  rangeLabelClass: string;
 }
 
 const DIFFICULTIES: ReadonlyArray<DifficultyMeta> = [
@@ -66,21 +71,25 @@ const DIFFICULTIES: ReadonlyArray<DifficultyMeta> = [
     level: "easy",
     bgClass: "bg-diff-easy",
     hoverBgClass: "hover:brightness-95",
+    rangeLabelClass: "text-graphite/75",
   },
   {
     level: "medium",
     bgClass: "bg-diff-medium",
     hoverBgClass: "hover:brightness-95",
+    rangeLabelClass: "text-graphite/75",
   },
   {
     level: "hard",
     bgClass: "bg-diff-hard",
     hoverBgClass: "hover:brightness-95",
+    rangeLabelClass: "text-graphite/75",
   },
   {
     level: "expert",
     bgClass: "bg-diff-expert",
     hoverBgClass: "hover:brightness-95",
+    rangeLabelClass: "text-graphite",
   },
 ];
 
@@ -141,7 +150,9 @@ export const DifficultySelector = ({
                 <span className="text-3xl md:text-4xl font-bold text-graphite">
                   {DIFFICULTY_LABELS[diff.level]}
                 </span>
-                <span className="text-sm md:text-base font-mono font-medium text-graphite/75 tabular-nums">
+                <span
+                  className={`text-sm md:text-base font-mono font-medium ${diff.rangeLabelClass} tabular-nums`}
+                >
                   {rangeLabel(diff.level)}
                 </span>
               </button>

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { useRound } from "../../hooks/useRound";
+import { useEffect, useRef, useState } from "react";
+import { OPERATION_SYMBOLS } from "../../constants/operationSymbols";
+import { type LastSubmit, useRound } from "../../hooks/useRound";
 import { recordRound } from "../../progress/progressStore";
 import type { StrategyId } from "../../strategies";
 import type { Difficulty, Operation } from "../../types";
@@ -42,24 +43,38 @@ export function GameArena({
   const [justAnsweredIndex, setJustAnsweredIndex] = useState<number | null>(
     null,
   );
+  const [justAnsweredCorrect, setJustAnsweredCorrect] = useState(false);
+  const [announcement, setAnnouncement] = useState("");
   const [scoreBumpKey, setScoreBumpKey] = useState(0);
   const [streakFlareKey, setStreakFlareKey] = useState(0);
+  // the last submission we have already reacted to; lets us read currentQuestion
+  // (still the just-answered one when lastSubmit changes) without re-firing when
+  // the player later advances and currentQuestion changes but lastSubmit doesn't.
+  const processedSubmit = useRef<LastSubmit | null>(null);
 
   // animation triggers fed by lastSubmit
   useEffect(() => {
-    if (!lastSubmit) return;
+    if (!lastSubmit || lastSubmit === processedSubmit.current) return;
+    processedSubmit.current = lastSubmit;
     const index = results.length - 1;
     setJustAnsweredIndex(index);
+    setJustAnsweredCorrect(lastSubmit.correct);
     const id = window.setTimeout(() => setJustAnsweredIndex(null), 240);
     if (lastSubmit.correct) {
       setScoreBumpKey((k) => k + 1);
       setAnswer("");
+      setAnnouncement("Correcto.");
+    } else if (currentQuestion) {
+      const { num1, num2, operation } = currentQuestion;
+      setAnnouncement(
+        `Incorrecto. ${num1} ${OPERATION_SYMBOLS[operation]} ${num2} = ${lastSubmit.correctAnswer}.`,
+      );
     }
     if (lastSubmit.crossedTier !== null) {
       setStreakFlareKey((k) => k + 1);
     }
     return () => window.clearTimeout(id);
-  }, [lastSubmit, results.length]);
+  }, [lastSubmit, results.length, currentQuestion]);
 
   // persist progress when the round finishes
   useEffect(() => {
@@ -95,6 +110,9 @@ export function GameArena({
   const handlePlayAgain = () => {
     setAnswer("");
     setJustAnsweredIndex(null);
+    setJustAnsweredCorrect(false);
+    setAnnouncement("");
+    processedSubmit.current = null;
     restart();
   };
 
@@ -103,11 +121,15 @@ export function GameArena({
 
   return (
     <div className="min-h-screen bg-arena-bg text-ink flex flex-col">
+      <span className="sr-only" aria-live="assertive">
+        {announcement}
+      </span>
       <header className="flex items-center justify-between px-6 md:px-10 py-5">
         <ProgressDots
           results={results}
           total={10}
           justAnsweredIndex={justAnsweredIndex}
+          justAnsweredCorrect={justAnsweredCorrect}
         />
         <button
           type="button"
@@ -129,7 +151,7 @@ export function GameArena({
             onChangeLevel={onChangeLevel}
           />
         ) : currentQuestion ? (
-          <div className="flex flex-col items-center gap-16 md:gap-20">
+          <div className="flex flex-col items-center gap-10 md:gap-12">
             <ArenaQuestion question={currentQuestion} reveal={wrongReveal} />
             <div className="flex flex-col items-center gap-3">
               <ArenaInput

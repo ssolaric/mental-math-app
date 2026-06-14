@@ -42,5 +42,6 @@ export const subCompensation: Strategy = {
     medium: "restar casi-decena",
     hard: "restar casi-centena",
   },
+  example: "83 − 29 = 54 (−30, +1)",
   generate: generateSubCompensation,
 };

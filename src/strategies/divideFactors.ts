@@ -38,5 +38,6 @@ export const divideFactors: Strategy = {
     medium: "÷12, ÷15",
     hard: "÷24, ÷36",
   },
+  example: "144 ÷ 12 = 12 (÷4, ÷3)",
   generate: generateDivideFactors,
 };

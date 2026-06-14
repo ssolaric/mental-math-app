@@ -137,13 +137,14 @@ The palette commits to one warm hue family (emerald) and one warm accent (amber)
 
 Each is paired with an 8-to-14%-alpha tint of itself for hover backgrounds on operation tiles. Identity colors are spread across the hue wheel for color-blind separability.
 
-### Tertiary (difficulty intensity scale, only on the difficulty selector)
+### Tertiary (difficulty heat ramp, only on the difficulty selector)
 
 - **Soft Sage** (`oklch(0.83 0.09 158)`): Fácil.
 - **Soft Ochre** (`oklch(0.82 0.12 75)`): Medio.
 - **Soft Terra** (`oklch(0.76 0.13 22)`): Difícil.
+- **Forge Red** (`oklch(0.66 0.18 18)`): Experto.
 
-A warm-temperature intensity scale. None of these reuse the amber CTA hue or the destructive red; difficulty does not communicate "danger" or "primary action."
+A continuous warm-temperature heat ramp: cool and calm at Fácil, hottest and most intense at Experto. Hue travels green → ochre → terra → deep red; chroma rises and lightness falls as difficulty climbs, so "hotter = harder" reads as one learnable gradient across all four tiers. Experto is the hottest end of that ramp, **not** a hue jump. It is deliberately *not* plum: an earlier Experto reused the multiplication identity color (Inked Plum, hue 305), which collided with operation meaning. Difficulty never reuses the amber CTA hue; the destructive red lives only in the arena, so the difficulty selector's Forge Red (a fill on the hub) does not read as "danger."
 
 ### Neutral (hub surface)
 
@@ -236,14 +237,27 @@ The default secondary affordance. `graphite-mid` text with `paper-border` underl
 
 ### Difficulty Buttons
 
-- **Shape:** `rounded-lg` (0.5rem). Full color fill in the difficulty's tint (sage / ochre / terra).
-- **Layout:** inline horizontal, the difficulty label (Title weight) on the left, the numerical range (JetBrains Mono, smaller, 75% graphite opacity) on the right.
+- **Shape:** `rounded-lg` (0.5rem). Full color fill in the difficulty's heat-ramp color (sage / ochre / terra / forge-red).
+- **Layout:** inline horizontal, the difficulty label (Title weight) on the left, the numerical range (JetBrains Mono, smaller) on the right.
+- **Range-label contrast:** the range label must clear 4.5:1 against its tile fill. On the lighter tiles full `graphite` at 75% opacity passes; on the darker Experto fill the label uses full-strength `graphite` (no opacity reduction) so small text stays AA-legible.
 - **Hover:** `filter: brightness(0.95)`.
+- **Focus-visible:** 2px graphite ring with 2px offset on paper.
+
+### Strategy Tiles (strategy selector)
+
+The screen between operation and difficulty for operations that have mental techniques. It must obey "one screen, one job": the full set of techniques fits without scrolling at common viewport heights, or rarely-used ones collapse behind a disclosure.
+
+- **Shape & surface:** the neutral selectable-tile vocabulary — `paper`, 1px `paper-border`, `rounded-lg`. Strategy tiles do **not** carry an operation or difficulty color; the earlier flat plum tint (`op-mul-tint` on every tile regardless of operation) is removed because it reused a meaning-bearing hue arbitrarily. Differentiation comes from content, not color.
+- **Estándar tile:** the first option, same neutral tile; its supporting line reads "Práctica general."
+- **Technique tiles:** label (bold, Title-ish) stacked **above** a **concrete one-line teaching example** (e.g. `37 × 11 = 407`) rendered in JetBrains Mono `graphite-mid`, so the choice itself teaches the technique. The example sits on its own line (not inline-right) so longer worked examples and longer technique names never collide or overflow the tile at any width. The generic repeated "Técnica mental" label is removed — every tile's secondary line must carry information unique to that technique.
+- **Hover:** border transitions to `graphite-light` (matching the Estándar tile), `filter: brightness(0.98)` optional.
 - **Focus-visible:** 2px graphite ring with 2px offset on paper.
 
 ### Arena Question Display
 
-Not a component the kid interacts with; the most important visible element in the system. The math problem renders in JetBrains Mono 700, baseline-aligned with a gap of `1.25rem md:1.75rem`, all-tabular-figures, leading `1`. On wrong answers, the `?` swaps to the amber `correctAnswer` numeral with a 260ms reveal animation (translateY 6px → 0, opacity 0 → 1).
+Not a component the kid interacts with; the most important visible element in the system. The math problem renders in JetBrains Mono 700, baseline-aligned with a gap of `1.25rem md:1.75rem`, all-tabular-figures, leading `1`.
+
+On a **wrong** answer the `?` swaps to the `correctAnswer` numeral rendered in neutral **`ink`** (factual, "here is the answer, plainly"), with the 260ms reveal animation (translateY 6px → 0, opacity 0 → 1), and an **`Incorrecto` marker in `wrong` red** appears at the equation. The revealed answer is **never** shown in amber: amber is the reward color (correct dot, score bump, streak, CTA), and tinting the missed answer gold made an error read as a celebration. Amber and the wrong-answer reveal are now strictly separated — this upholds the Color-Means-One-Thing Rule at the most emotionally charged moment.
 
 ### Arena Input
 
@@ -251,11 +265,15 @@ A single-line numeric input with no fill and no rounded shape: only a bottom hai
 
 ### Progress Dots (arena header)
 
-Ten 10px circles in a row, gap 8px.
-- **Pending** (positions ahead of the cursor): filled `arena-bg-elev`.
-- **Current** (the position about to be answered): `arena-bg-soft` background with 1px amber ring (inset).
-- **Just-answered correct**: amber fill, played through a 220ms `scale(1) → scale(1.55) → scale(1)` pulse on the `ease-out-quart` curve.
-- **Wrong**: muted-red (`wrong`) fill.
+Ten markers in a row, gap 8px. Correct and wrong are **not** distinguished by color alone (a hard PRODUCT.md rule): they differ in shape/treatment as well as hue.
+- **Pending** (positions ahead of the cursor): filled `arena-bg-elev` circle.
+- **Current** (the position about to be answered): `arena-bg-soft` circle with 1px amber ring (inset).
+- **Just-answered correct**: solid amber **filled** circle, played through a 220ms `scale(1) → scale(1.55) → scale(1)` pulse on the `ease-out-quart` curve. The pulse fires on correct answers **only**.
+- **Wrong**: `wrong`-red marker with a distinct shape treatment (hollow/ringed rather than solid-fill, or an inset cross) so it is separable from a correct dot without relying on the amber-vs-red hue difference. No correct-pulse.
+
+### Result Announcement (arena, screen-reader)
+
+Correctness is conveyed visually (dot shape + color, the question reveal, the `Incorrecto` marker) and must also be announced. An `aria-live="assertive"` (or polite) region announces each outcome in plain Spanish, including the answer on a miss: "Correcto." / "Incorrecto. 9 × 22 = 198." This is separate from the existing progress count announcement.
 
 ### Round Results
 

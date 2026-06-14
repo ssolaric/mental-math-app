@@ -33,5 +33,6 @@ export const subComplement: Strategy = {
     medium: "1000 − n",
     hard: "10000 − n",
   },
+  example: "100 − 64 = 36",
   generate: generateSubComplement,
 };

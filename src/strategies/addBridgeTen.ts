@@ -39,5 +39,6 @@ export const addBridgeTen: Strategy = {
     medium: "dos dígitos + un dígito",
     hard: "dos dígitos + dos dígitos",
   },
+  example: "8 + 5 = 8 + 2 + 3 = 13",
   generate: generateAddBridgeTen,
 };

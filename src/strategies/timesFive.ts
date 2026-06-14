@@ -32,5 +32,6 @@ export const timesFive: Strategy = {
     medium: "20-99 × 5",
     hard: "100-999 × 5",
   },
+  example: "48 × 5 = 240",
   generate: generateTimesFive,
 };

@@ -35,5 +35,6 @@ export const addNearDoubles: Strategy = {
     medium: "sumandos 10-50",
     hard: "sumandos 20-99",
   },
+  example: "7 + 8 = 7 + 7 + 1 = 15",
   generate: generateAddNearDoubles,
 };

@@ -42,5 +42,6 @@ export const nearBase: Strategy = {
     medium: "factores 91-109",
     hard: "factores 991-1009",
   },
+  example: "98 × 97 = 9506",
   generate: generateNearBase,
 };

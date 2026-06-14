@@ -92,7 +92,7 @@ export const OperationSelector = ({
                   className={`group relative flex flex-col items-start gap-6 md:gap-8 p-6 md:p-8 bg-paper border border-paper-border rounded-lg transition-colors text-left ${op.hoverBgClass} ${op.hoverBorderClass} focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-paper`}
                 >
                   <span
-                    className={`text-7xl md:text-8xl font-mono font-bold leading-none tabular-nums ${op.textClass}`}
+                    className={`flex h-16 md:h-20 items-center text-7xl md:text-8xl font-mono font-bold leading-none tabular-nums ${op.textClass}`}
                     aria-hidden="true"
                   >
                     {op.symbol}

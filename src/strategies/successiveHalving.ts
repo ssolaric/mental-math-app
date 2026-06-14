@@ -37,5 +37,6 @@ export const successiveHalving: Strategy = {
     medium: "÷8 (triple mitad)",
     hard: "÷8 con dividendos grandes",
   },
+  example: "120 ÷ 8 = 15 (mitad ×3)",
   generate: generateSuccessiveHalving,
 };

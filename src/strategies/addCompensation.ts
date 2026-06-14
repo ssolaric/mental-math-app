@@ -42,5 +42,6 @@ export const addCompensation: Strategy = {
     medium: "casi-decena + 10-99",
     hard: "casi-centena + 100-999",
   },
+  example: "47 + 29 = 76 (+30, −1)",
   generate: generateAddCompensation,
 };

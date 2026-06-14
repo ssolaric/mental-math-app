@@ -33,5 +33,6 @@ export const divideFive: Strategy = {
     medium: "50-200 ÷ 5",
     hard: "205-495 ÷ 5",
   },
+  example: "240 ÷ 5 = 48 (×2, ÷10)",
   generate: generateDivideFive,
 };

@@ -37,5 +37,6 @@ export const timesEleven: Strategy = {
     medium: "10-99 × 11",
     hard: "100-999 × 11",
   },
+  example: "37 × 11 = 407",
   generate: generateTimesEleven,
 };

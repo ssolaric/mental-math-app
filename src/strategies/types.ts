@@ -27,5 +27,7 @@ export interface Strategy {
   difficulties: Difficulty[];
   /** Range hint shown per difficulty on the difficulty screen (offered levels only). */
   describe: Partial<Record<Difficulty, string>>;
+  /** Short, concrete worked example that teaches the technique at a glance. */
+  example: string;
   generate: (difficulty: Difficulty) => Question;
 }

@@ -32,5 +32,6 @@ export const timesTwentyFive: Strategy = {
     medium: "10-40 × 25",
     hard: "10-99 × 25",
   },
+  example: "36 × 25 = 900",
   generate: generateTimesTwentyFive,
 };

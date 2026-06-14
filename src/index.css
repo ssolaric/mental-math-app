@@ -42,10 +42,14 @@
   --color-op-div: oklch(0.55 0.11 215);
   --color-op-div-tint: oklch(0.55 0.11 215 / 0.14);
 
+  /* Difficulty heat ramp: cool/calm (easy) -> hottest/most intense (expert).
+     Hue travels green -> ochre -> terra -> deep red; chroma rises, lightness
+     falls. Expert is the hottest end, no longer plum, so it never collides
+     with the multiplication identity color (op-mul, hue 305). */
   --color-diff-easy: oklch(0.83 0.09 158);
   --color-diff-medium: oklch(0.82 0.12 75);
   --color-diff-hard: oklch(0.76 0.13 22);
-  --color-diff-expert: oklch(0.62 0.16 305);
+  --color-diff-expert: oklch(0.66 0.18 18);
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

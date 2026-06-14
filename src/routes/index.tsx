@@ -9,9 +9,6 @@ function LandingPage() {
     <div className="min-h-screen bg-paper flex flex-col items-center justify-center px-6">
       <div className="max-w-xl w-full flex flex-col items-start gap-12">
         <div className="flex flex-col gap-4">
-          <p className="text-sm font-medium uppercase tracking-[0.22em] text-graphite-light">
-            Práctica diaria
-          </p>
           <h1 className="text-5xl md:text-6xl font-bold text-graphite leading-[1.05]">
             Matemáticas
             <br />

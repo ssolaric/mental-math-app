@@ -4,6 +4,7 @@ interface ProgressDotsProps {
   results: ReadonlyArray<DotResult>;
   total: number;
   justAnsweredIndex: number | null;
+  justAnsweredCorrect: boolean;
 }
 
 const dotState = (
@@ -11,7 +12,7 @@ const dotState = (
   isCurrent: boolean,
 ): string => {
   if (result === "correct") return "bg-accent";
-  if (result === "wrong") return "bg-wrong";
+  if (result === "wrong") return "border-2 border-wrong bg-transparent";
   if (isCurrent) return "bg-arena-bg-soft ring-1 ring-accent ring-inset";
   return "bg-arena-bg-elev";
 };
@@ -20,6 +21,7 @@ export const ProgressDots = ({
   results,
   total,
   justAnsweredIndex,
+  justAnsweredCorrect,
 }: ProgressDotsProps) => {
   const dots = Array.from({ length: total }, (_, i) => ({
     id: `dot-${i}`,
@@ -39,7 +41,7 @@ export const ProgressDots = ({
           key={id}
           aria-hidden="true"
           className={`w-2.5 h-2.5 rounded-full ${dotState(result, isCurrent)}${
-            justAnswered ? " anim-correct-pulse" : ""
+            justAnswered && justAnsweredCorrect ? " anim-correct-pulse" : ""
           }`}
         />
       ))}

@@ -38,5 +38,6 @@ export const subCountUp: Strategy = {
     medium: "cruzar una decena",
     hard: "cruzar una centena",
   },
+  example: "61 − 58 = 3 (cuenta arriba)",
   generate: generateSubCountUp,
 };

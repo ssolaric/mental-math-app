@@ -38,7 +38,9 @@ export const ArenaStats = ({
         </span>
         <span
           key={`score-${scoreBumpKey}`}
-          className="text-2xl font-semibold text-accent anim-score-bump"
+          className={`text-2xl font-semibold anim-score-bump ${
+            score > 0 ? "text-accent" : "text-ink-muted"
+          }`}
         >
           {score}
         </span>

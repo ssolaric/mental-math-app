@@ -33,5 +33,6 @@ export const squaresEndingFive: Strategy = {
     medium: "15² … 95²",
     hard: "105² … 195²",
   },
+  example: "35² = 1225",
   generate: generateSquaresEndingFive,
 };
