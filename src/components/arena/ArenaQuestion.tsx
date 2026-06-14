@@ -36,7 +36,7 @@ export const ArenaQuestion = ({ question, reveal }: ArenaQuestionProps) => {
         )}
       </div>
       {reveal != null && (
-        <span className="font-sans text-sm font-medium uppercase tracking-[0.18em] text-wrong anim-reveal">
+        <span className="font-sans text-sm font-bold uppercase tracking-[0.18em] text-wrong anim-reveal">
           Incorrecto
         </span>
       )}

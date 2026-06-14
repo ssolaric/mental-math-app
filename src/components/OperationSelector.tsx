@@ -69,7 +69,7 @@ export const OperationSelector = ({
         <div className="w-full max-w-3xl">
           <div className="mb-12 md:mb-16">
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-graphite-light mb-3">
-              Paso 1 de 2
+              Paso 1 de 3
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-graphite">
               ¿Qué quieres practicar?

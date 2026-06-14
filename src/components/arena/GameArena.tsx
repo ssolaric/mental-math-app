@@ -119,6 +119,13 @@ export function GameArena({
   const wrongReveal =
     status === "wrong" && lastSubmit ? lastSubmit.correctAnswer : null;
 
+  const hint =
+    status === "wrong"
+      ? "Enter para continuar"
+      : results.length === 0
+        ? "Escribe y pulsa Enter"
+        : null;
+
   return (
     <div className="min-h-screen bg-arena-bg text-ink flex flex-col">
       <span className="sr-only" aria-live="assertive">
@@ -140,7 +147,7 @@ export function GameArena({
         </button>
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center px-6 -mt-8">
+      <main className="flex-1 flex flex-col items-center justify-center px-6">
         {summary ? (
           <RoundResults
             correct={summary.correct}
@@ -151,38 +158,38 @@ export function GameArena({
             onChangeLevel={onChangeLevel}
           />
         ) : currentQuestion ? (
-          <div className="flex flex-col items-center gap-10 md:gap-12">
+          <div className="flex flex-col items-center gap-8 md:gap-10">
             <ArenaQuestion question={currentQuestion} reveal={wrongReveal} />
-            <div className="flex flex-col items-center gap-3">
+            <div className="flex flex-col items-center gap-2">
               <ArenaInput
                 value={answer}
                 onChange={setAnswer}
                 onSubmit={handleSubmit}
                 disabled={status === "wrong"}
               />
-              {status === "wrong" && (
-                <p className="text-sm text-ink-subtle anim-reveal pt-2">
-                  Enter para continuar
-                </p>
-              )}
+              {/* Fixed-height line: a one-time "how to play" cue on the very
+                  first question, the advance cue while a wrong answer is shown,
+                  reserved (invisible) otherwise so the HUD below never shifts. */}
+              <p
+                className={`h-5 text-sm font-medium pt-1 ${
+                  hint ? "text-ink-subtle anim-reveal" : "invisible"
+                }`}
+              >
+                {hint ?? " "}
+              </p>
+            </div>
+            <div className="w-full max-w-md">
+              <ArenaStats
+                score={score}
+                currentStreak={streak}
+                elapsedTime={elapsedMs}
+                scoreBumpKey={scoreBumpKey}
+                streakFlareKey={streakFlareKey}
+              />
             </div>
           </div>
         ) : null}
       </main>
-
-      <footer className="px-6 md:px-10 py-6">
-        {!summary && (
-          <div className="max-w-md mx-auto">
-            <ArenaStats
-              score={score}
-              currentStreak={streak}
-              elapsedTime={elapsedMs}
-              scoreBumpKey={scoreBumpKey}
-              streakFlareKey={streakFlareKey}
-            />
-          </div>
-        )}
-      </footer>
     </div>
   );
 }

@@ -107,6 +107,13 @@ export const DifficultySelector = ({
   const rangeLabel = (level: Difficulty): string =>
     describe?.[level] ?? DIFFICULTY_RANGES[operation][level];
 
+  // The difficulty screen is the last step. Reached via the strategy selector it
+  // is step 3 of 3; reached straight from the operation selector it is step 2 of
+  // 2. When a strategy is active its name rides alongside the counter as context.
+  const stepLabel =
+    backTo === "/strategy-select" ? "Paso 3 de 3" : "Paso 2 de 2";
+  const eyebrow = subtitle ? `${stepLabel} · ${subtitle}` : stepLabel;
+
   return (
     <div className="min-h-screen bg-paper flex flex-col">
       <header className="px-6 md:px-12 py-6">
@@ -132,7 +139,7 @@ export const DifficultySelector = ({
         <div className="w-full max-w-md">
           <div className="mb-10">
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-graphite-light mb-3">
-              {subtitle ?? "Paso 2 de 2"}
+              {eyebrow}
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-graphite">
               Elige el nivel.

@@ -18,7 +18,10 @@
   --color-arena-bg-elev: oklch(0.34 0.06 158);
   --color-ink: oklch(0.97 0.015 158);
   --color-ink-muted: oklch(0.78 0.025 158);
-  --color-ink-subtle: oklch(0.56 0.035 158);
+  /* Lightest ink role still on the dark arena stage. Raised from 0.56 so small
+     non-bold text (the "Pts" label, idle streak, "Enter para continuar" hint)
+     clears WCAG AA 4.5:1 against arena-bg; lowering it would have cut contrast. */
+  --color-ink-subtle: oklch(0.63 0.035 158);
   --color-accent: oklch(0.83 0.15 78);
   --color-accent-soft: oklch(0.83 0.15 78 / 0.4);
   --color-accent-hover: oklch(0.77 0.16 78);
@@ -31,7 +34,9 @@
   --color-paper-border: oklch(0.88 0.022 158);
   --color-graphite: oklch(0.24 0.045 158);
   --color-graphite-mid: oklch(0.46 0.04 158);
-  --color-graphite-light: oklch(0.62 0.035 158);
+  /* Lightest graphite role on warm paper. Darkened from 0.62 so the eyebrows,
+     back-links, and "Sin jugar aún" hint clear WCAG AA 4.5:1 on paper. */
+  --color-graphite-light: oklch(0.52 0.035 158);
 
   --color-op-add: oklch(0.55 0.14 158);
   --color-op-add-tint: oklch(0.55 0.14 158 / 0.14);
