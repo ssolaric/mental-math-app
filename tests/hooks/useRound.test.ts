@@ -195,6 +195,16 @@ describe("useRound", () => {
     expect(round.result.current.elapsedMs).toBe(frozen);
   });
 
+  it("generates questions from the given strategy", () => {
+    const round = renderHook(() =>
+      useRound("multiplication", "easy", 10, "times-eleven"),
+    );
+    const q = round.result.current.currentQuestion;
+    expect(q?.operation).toBe("multiplication");
+    expect(q?.num2).toBe(11);
+    expect(q?.correctAnswer).toBe((q?.num1 ?? 0) * 11);
+  });
+
   it("starts a brand new round when the difficulty changes", () => {
     const round = renderHook(
       ({ difficulty }: { difficulty: Difficulty }) =>

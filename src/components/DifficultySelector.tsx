@@ -4,6 +4,14 @@ import type { Difficulty, Operation } from "../types";
 interface DifficultySelectorProps {
   operation: Operation;
   onSelectDifficulty: (difficulty: Difficulty) => void;
+  /** Where the Back link returns to (the screen this one was reached from). */
+  backTo: "/strategy-select" | "/operation-select";
+  /** Levels to offer (defaults to all four). A strategy may offer fewer. */
+  difficulties?: Difficulty[];
+  /** Per-level range hint overrides (defaults to the operation's ranges). */
+  describe?: Partial<Record<Difficulty, string>>;
+  /** Optional line above the heading, e.g. the active strategy's name. */
+  subtitle?: string;
 }
 
 const OPERATION_LABELS: Record<Operation, string> = {
@@ -17,6 +25,7 @@ const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   easy: "Fácil",
   medium: "Medio",
   hard: "Difícil",
+  expert: "Experto",
 };
 
 const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, string>> = {
@@ -24,21 +33,25 @@ const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, string>> = {
     easy: "1-9 + 1-9",
     medium: "10-99 + 10-99",
     hard: "100-999 + 10-99",
+    expert: "100-999 + 100-999",
   },
   subtraction: {
-    easy: "5-9 − 1-5",
-    medium: "20-99 − 1-50",
+    easy: "11-18 − 2-9",
+    medium: "20-99 − 11-89",
     hard: "100-999 − 10-99",
+    expert: "100-999 − 100-999",
   },
   multiplication: {
     easy: "1-9 × 1-9",
-    medium: "1-9 × 10-20",
-    hard: "10-25 × 2-9",
+    medium: "2-9 × 10-99",
+    hard: "11-30 × 11-30",
+    expert: "11-99 × 11-99",
   },
   division: {
     easy: "Datos básicos",
-    medium: "20-90 ÷ 2-9",
-    hard: "10-99 ÷ 2-9",
+    medium: "20-99 ÷ 2-9",
+    hard: "100-999 ÷ 2-9",
+    expert: "100-999 ÷ 11-25",
   },
 };
 
@@ -64,28 +77,53 @@ const DIFFICULTIES: ReadonlyArray<DifficultyMeta> = [
     bgClass: "bg-diff-hard",
     hoverBgClass: "hover:brightness-95",
   },
+  {
+    level: "expert",
+    bgClass: "bg-diff-expert",
+    hoverBgClass: "hover:brightness-95",
+  },
 ];
 
 export const DifficultySelector = ({
   operation,
   onSelectDifficulty,
+  backTo,
+  difficulties,
+  describe,
+  subtitle,
 }: DifficultySelectorProps) => {
+  const tiles = difficulties
+    ? DIFFICULTIES.filter((d) => difficulties.includes(d.level))
+    : DIFFICULTIES;
+  const rangeLabel = (level: Difficulty): string =>
+    describe?.[level] ?? DIFFICULTY_RANGES[operation][level];
+
   return (
     <div className="min-h-screen bg-paper flex flex-col">
       <header className="px-6 md:px-12 py-6">
-        <Link
-          to="/operation-select"
-          className="text-sm font-medium uppercase tracking-[0.18em] text-graphite-light hover:text-graphite-mid transition-colors"
-        >
-          ← {OPERATION_LABELS[operation]}
-        </Link>
+        {backTo === "/strategy-select" ? (
+          <Link
+            to="/strategy-select"
+            search={{ operation }}
+            className="text-sm font-medium uppercase tracking-[0.18em] text-graphite-light hover:text-graphite-mid transition-colors"
+          >
+            ← {OPERATION_LABELS[operation]}
+          </Link>
+        ) : (
+          <Link
+            to="/operation-select"
+            className="text-sm font-medium uppercase tracking-[0.18em] text-graphite-light hover:text-graphite-mid transition-colors"
+          >
+            ← {OPERATION_LABELS[operation]}
+          </Link>
+        )}
       </header>
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 pb-16">
         <div className="w-full max-w-md">
           <div className="mb-10">
             <p className="text-sm font-medium uppercase tracking-[0.22em] text-graphite-light mb-3">
-              Paso 2 de 2
+              {subtitle ?? "Paso 2 de 2"}
             </p>
             <h1 className="text-4xl md:text-5xl font-bold text-graphite">
               Elige el nivel.
@@ -93,7 +131,7 @@ export const DifficultySelector = ({
           </div>
 
           <div className="flex flex-col gap-3">
-            {DIFFICULTIES.map((diff) => (
+            {tiles.map((diff) => (
               <button
                 key={diff.level}
                 type="button"
@@ -104,7 +142,7 @@ export const DifficultySelector = ({
                   {DIFFICULTY_LABELS[diff.level]}
                 </span>
                 <span className="text-sm md:text-base font-mono font-medium text-graphite/75 tabular-nums">
-                  {DIFFICULTY_RANGES[operation][diff.level]}
+                  {rangeLabel(diff.level)}
                 </span>
               </button>
             ))}

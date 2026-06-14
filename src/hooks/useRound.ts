@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { score } from "../scoring";
+import { generateForRound, type StrategyId } from "../strategies";
 import type { Difficulty, Operation, Question } from "../types";
-import { generateQuestion } from "../utils/mathGenerator";
 import { validateAnswer } from "../utils/validators";
 
 export type RoundStatus = "playing" | "wrong" | "finished";
@@ -58,9 +58,10 @@ interface RoundState {
 const freshState = (
   operation: Operation,
   difficulty: Difficulty,
+  strategyId?: StrategyId,
 ): RoundState => ({
   status: "playing",
-  currentQuestion: generateQuestion(operation, difficulty),
+  currentQuestion: generateForRound(operation, difficulty, strategyId),
   results: [],
   score: 0,
   streak: 0,
@@ -83,18 +84,19 @@ export const useRound = (
   operation: Operation,
   difficulty: Difficulty,
   length: number = DEFAULT_ROUND_LENGTH,
+  strategyId?: StrategyId,
 ): UseRoundReturn => {
   const [state, setState] = useState<RoundState>(() =>
-    freshState(operation, difficulty),
+    freshState(operation, difficulty, strategyId),
   );
   const [, setTick] = useState(0);
   const lengthRef = useRef(length);
   lengthRef.current = length;
 
-  // restart when operation/difficulty change
+  // restart when operation/difficulty/strategy change
   useEffect(() => {
-    setState(freshState(operation, difficulty));
-  }, [operation, difficulty]);
+    setState(freshState(operation, difficulty, strategyId));
+  }, [operation, difficulty, strategyId]);
 
   // live elapsed clock — ticks while playing or wrong, frozen on finished
   useEffect(() => {
@@ -165,7 +167,7 @@ export const useRound = (
 
         return {
           ...s,
-          currentQuestion: generateQuestion(operation, difficulty),
+          currentQuestion: generateForRound(operation, difficulty, strategyId),
           results: nextResults,
           score: s.score + pointsEarned,
           streak: newStreak,
@@ -174,7 +176,7 @@ export const useRound = (
         };
       });
     },
-    [operation, difficulty],
+    [operation, difficulty, strategyId],
   );
 
   const advance = useCallback(() => {
@@ -193,14 +195,14 @@ export const useRound = (
       return {
         ...s,
         status: "playing",
-        currentQuestion: generateQuestion(operation, difficulty),
+        currentQuestion: generateForRound(operation, difficulty, strategyId),
       };
     });
-  }, [operation, difficulty]);
+  }, [operation, difficulty, strategyId]);
 
   const restart = useCallback(() => {
-    setState(freshState(operation, difficulty));
-  }, [operation, difficulty]);
+    setState(freshState(operation, difficulty, strategyId));
+  }, [operation, difficulty, strategyId]);
 
   const elapsedMs =
     state.frozenElapsedMs ?? Math.max(0, Date.now() - state.startTimeMs);

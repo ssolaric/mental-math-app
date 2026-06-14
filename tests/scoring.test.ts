@@ -7,6 +7,7 @@ describe("score", () => {
     expect(score("easy", 1, 10)).toBe(10);
     expect(score("medium", 1, 10)).toBe(20);
     expect(score("hard", 1, 10)).toBe(30);
+    expect(score("expert", 1, 10)).toBe(40);
   });
 
   it("applies a 1.2x multiplier at a streak of 3", () => {

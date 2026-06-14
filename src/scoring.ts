@@ -4,6 +4,7 @@ const BASE_POINTS: Record<Difficulty, number> = {
   easy: 10,
   medium: 20,
   hard: 30,
+  expert: 40,
 };
 
 const streakMultiplier = (streak: number): number => {

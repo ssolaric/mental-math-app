@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRound } from "../../hooks/useRound";
 import { recordRound } from "../../progress/progressStore";
+import type { StrategyId } from "../../strategies";
 import type { Difficulty, Operation } from "../../types";
 import { ArenaInput } from "./ArenaInput";
 import { ArenaQuestion } from "./ArenaQuestion";
@@ -11,6 +12,7 @@ import { RoundResults } from "./RoundResults";
 type GameArenaProps = {
   operation: Operation;
   difficulty: Difficulty;
+  strategy?: StrategyId;
   onExit: () => void;
   onChangeLevel: () => void;
 };
@@ -18,6 +20,7 @@ type GameArenaProps = {
 export function GameArena({
   operation,
   difficulty,
+  strategy,
   onExit,
   onChangeLevel,
 }: GameArenaProps) {
@@ -33,7 +36,7 @@ export function GameArena({
     submit,
     advance,
     restart,
-  } = useRound(operation, difficulty);
+  } = useRound(operation, difficulty, undefined, strategy);
 
   const [answer, setAnswer] = useState("");
   const [justAnsweredIndex, setJustAnsweredIndex] = useState<number | null>(

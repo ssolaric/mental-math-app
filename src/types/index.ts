@@ -3,7 +3,7 @@ export type Operation =
   | "subtraction"
   | "multiplication"
   | "division";
-export type Difficulty = "easy" | "medium" | "hard";
+export type Difficulty = "easy" | "medium" | "hard" | "expert";
 
 export interface Question {
   num1: number;

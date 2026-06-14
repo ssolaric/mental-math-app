@@ -45,6 +45,7 @@
   --color-diff-easy: oklch(0.83 0.09 158);
   --color-diff-medium: oklch(0.82 0.12 75);
   --color-diff-hard: oklch(0.76 0.13 22);
+  --color-diff-expert: oklch(0.62 0.16 305);
 
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

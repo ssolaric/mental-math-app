@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { OperationSelector } from "../components/OperationSelector";
 import { useGameProgress } from "../progress/useGameProgress";
+import { hasStrategies } from "../strategies";
 import type { Operation } from "../types";
 
 export const Route = createFileRoute("/operation-select")({
@@ -12,10 +13,12 @@ function OperationSelectPage() {
   const gameProgress = useGameProgress();
 
   const handleSelectOperation = (operation: Operation) => {
-    navigate({
-      to: "/difficulty-select",
-      search: { operation },
-    });
+    // operations with special strategies get an extra step to choose a technique;
+    // others go straight to the difficulty screen (unchanged two-step flow).
+    const to = hasStrategies(operation)
+      ? "/strategy-select"
+      : "/difficulty-select";
+    navigate({ to, search: { operation } });
   };
 
   return (

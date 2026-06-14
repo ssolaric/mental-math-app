@@ -9,12 +9,18 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as StrategySelectRouteImport } from './routes/strategy-select'
 import { Route as StatsRouteImport } from './routes/stats'
 import { Route as OperationSelectRouteImport } from './routes/operation-select'
 import { Route as GameRouteImport } from './routes/game'
 import { Route as DifficultySelectRouteImport } from './routes/difficulty-select'
 import { Route as IndexRouteImport } from './routes/index'
 
+const StrategySelectRoute = StrategySelectRouteImport.update({
+  id: '/strategy-select',
+  path: '/strategy-select',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
   path: '/stats',
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/game': typeof GameRoute
   '/operation-select': typeof OperationSelectRoute
   '/stats': typeof StatsRoute
+  '/strategy-select': typeof StrategySelectRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/game': typeof GameRoute
   '/operation-select': typeof OperationSelectRoute
   '/stats': typeof StatsRoute
+  '/strategy-select': typeof StrategySelectRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,6 +70,7 @@ export interface FileRoutesById {
   '/game': typeof GameRoute
   '/operation-select': typeof OperationSelectRoute
   '/stats': typeof StatsRoute
+  '/strategy-select': typeof StrategySelectRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -71,8 +80,15 @@ export interface FileRouteTypes {
     | '/game'
     | '/operation-select'
     | '/stats'
+    | '/strategy-select'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/difficulty-select' | '/game' | '/operation-select' | '/stats'
+  to:
+    | '/'
+    | '/difficulty-select'
+    | '/game'
+    | '/operation-select'
+    | '/stats'
+    | '/strategy-select'
   id:
     | '__root__'
     | '/'
@@ -80,6 +96,7 @@ export interface FileRouteTypes {
     | '/game'
     | '/operation-select'
     | '/stats'
+    | '/strategy-select'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,10 +105,18 @@ export interface RootRouteChildren {
   GameRoute: typeof GameRoute
   OperationSelectRoute: typeof OperationSelectRoute
   StatsRoute: typeof StatsRoute
+  StrategySelectRoute: typeof StrategySelectRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/strategy-select': {
+      id: '/strategy-select'
+      path: '/strategy-select'
+      fullPath: '/strategy-select'
+      preLoaderRoute: typeof StrategySelectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/stats': {
       id: '/stats'
       path: '/stats'
@@ -136,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   GameRoute: GameRoute,
   OperationSelectRoute: OperationSelectRoute,
   StatsRoute: StatsRoute,
+  StrategySelectRoute: StrategySelectRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

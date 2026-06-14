@@ -1,6 +1,6 @@
 # Mental Math Practice
 
-A practice app for arithmetic operations. A student picks an **Operation** and a **Difficulty**, plays a fixed-length **Round** of questions, and the result accumulates into their **GameProgress** across rounds.
+A practice app for arithmetic operations. A student picks an **Operation** (optionally a **Strategy** within it) and a **Difficulty**, plays a fixed-length **Round** of questions, and the result accumulates into their **GameProgress** across rounds.
 
 ## Language
 
@@ -16,8 +16,12 @@ _Avoid_: problem, exercise.
 One of addition, subtraction, multiplication, division. Selected at the start of a Round.
 _Avoid_: op, kind.
 
+**Strategy**:
+A named mental-math technique within an **Operation** (e.g. ×11), with its own generator and its own subset of **Difficulty** levels. A Round without a Strategy uses the Operation's _standard_ generator. A Strategy's results roll up into its base Operation's **GameProgress** stats.
+_Avoid_: trick, method, mode.
+
 **Difficulty**:
-One of easy, medium, hard. Determines number ranges for **Question** generation and base points for scoring.
+One of easy, medium, hard, expert. Determines number ranges for **Question** generation and base points for scoring. A **Strategy** may offer only a subset of these levels.
 _Avoid_: level, mode.
 
 **GameProgress**:
@@ -43,6 +47,7 @@ _Avoid_: report, recap.
 ## Relationships
 
 - A **GameProgress** is updated by zero or more finished **Round**s.
+- A **Strategy** belongs to exactly one **Operation**; an Operation has zero or more Strategies plus its standard generator.
 - A **Round** contains N **Question**s and produces one **Summary** on finishing.
 - A **Streak** is a property of a **Round**, not of **GameProgress** (though GameProgress records the all-time best Streak across Rounds).
 
