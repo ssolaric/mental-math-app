@@ -1,12 +1,12 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { GameArena } from "../../../src/components/arena/GameArena";
 import {
   configureProgressStorage,
   getProgress,
-} from "../../progress/progressStore";
-import { inMemoryStorageAdapter } from "../../progress/storageAdapter";
-import { GameArena } from "./GameArena";
+} from "../../../src/progress/progressStore";
+import { inMemoryStorageAdapter } from "../../../src/progress/storageAdapter";
 
 // Drive the whole arena (component + useRound + progressStore) the way a player
 // does: read the rendered addition problem, type the answer, press Enter.

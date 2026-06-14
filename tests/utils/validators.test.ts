@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { Question } from "../types";
-import { isValidNumber, validateAnswer } from "./validators";
+import type { Question } from "../../src/types";
+import { isValidNumber, validateAnswer } from "../../src/utils/validators";
 
 const question = (correctAnswer: number): Question => ({
   num1: 0,

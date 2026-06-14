@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { DIFFICULTY_RANGES } from "../constants/difficulty";
-import type { Difficulty, Operation } from "../types";
-import { generateQuestion } from "./mathGenerator";
+import { DIFFICULTY_RANGES } from "../../src/constants/difficulty";
+import type { Difficulty, Operation } from "../../src/types";
+import { generateQuestion } from "../../src/utils/mathGenerator";
 
 const DIFFICULTIES: Difficulty[] = ["easy", "medium", "hard"];
 const ITERATIONS = 500;

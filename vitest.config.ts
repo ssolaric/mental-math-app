@@ -9,8 +9,9 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
-    // e2e specs live in ./e2e and are driven by Playwright, not Vitest
-    include: ["src/**/*.test.{ts,tsx}"],
+    // unit/integration tests live in ./tests; e2e specs live in ./e2e and are
+    // driven by Playwright, not Vitest
+    include: ["tests/**/*.test.{ts,tsx}"],
     css: false,
   },
 });

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { RoundSummary } from "../hooks/useRound";
+import type { RoundSummary } from "../../src/hooks/useRound";
 import {
   applyRoundToProgress,
   configureProgressStorage,
@@ -8,8 +8,8 @@ import {
   recordRound,
   resetProgress,
   subscribeProgress,
-} from "./progressStore";
-import { inMemoryStorageAdapter } from "./storageAdapter";
+} from "../../src/progress/progressStore";
+import { inMemoryStorageAdapter } from "../../src/progress/storageAdapter";
 
 const summary = (over: Partial<RoundSummary> = {}): RoundSummary => ({
   correct: 8,

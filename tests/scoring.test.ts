@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { score } from "./scoring";
+import { score } from "../src/scoring";
 
 describe("score", () => {
   it("awards base points for a first correct answer with no speed bonus", () => {

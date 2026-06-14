@@ -1,8 +1,8 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { Difficulty } from "../types";
-import type { UseRoundReturn } from "./useRound";
-import { useRound } from "./useRound";
+import type { UseRoundReturn } from "../../src/hooks/useRound";
+import { useRound } from "../../src/hooks/useRound";
+import type { Difficulty } from "../../src/types";
 
 // Fake timers keep the live elapsed clock (setInterval) and Date.now() based
 // timing deterministic. Real timers would make scoring flaky.
