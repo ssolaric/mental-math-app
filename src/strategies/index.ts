@@ -5,6 +5,8 @@ import { addCompensation } from "./addCompensation";
 import { addNearDoubles } from "./addNearDoubles";
 import { divideFactors } from "./divideFactors";
 import { divideFive } from "./divideFive";
+import { doubling } from "./doubling";
+import { halving } from "./halving";
 import { nearBase } from "./nearBase";
 import { squaresEndingFive } from "./squaresEndingFive";
 import { subCompensation } from "./subCompensation";
@@ -14,6 +16,7 @@ import { successiveHalving } from "./successiveHalving";
 import { timesEleven } from "./timesEleven";
 import { timesFive } from "./timesFive";
 import { timesNine } from "./timesNine";
+import { timesNineNine } from "./timesNineNine";
 import { timesTwentyFive } from "./timesTwentyFive";
 import type { Strategy, StrategyId } from "./types";
 
@@ -30,10 +33,13 @@ const STRATEGIES: Record<StrategyId, Strategy> = {
   "times-twentyfive": timesTwentyFive,
   "times-five": timesFive,
   "times-nine": timesNine,
+  "times-ninetynine": timesNineNine,
+  doubling: doubling,
   "squares-ending-five": squaresEndingFive,
   "near-base": nearBase,
   "divide-five": divideFive,
   "successive-halving": successiveHalving,
+  halving: halving,
   "divide-factors": divideFactors,
 };
 

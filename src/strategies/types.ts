@@ -11,10 +11,13 @@ export type StrategyId =
   | "times-twentyfive"
   | "times-five"
   | "times-nine"
+  | "times-ninetynine"
+  | "doubling"
   | "squares-ending-five"
   | "near-base"
   | "divide-five"
   | "successive-halving"
+  | "halving"
   | "divide-factors";
 
 export interface Strategy {
