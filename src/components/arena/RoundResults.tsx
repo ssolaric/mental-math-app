@@ -65,7 +65,7 @@ export const RoundResults = ({
         <button
           type="button"
           onClick={onChangeLevel}
-          className="text-ink-muted hover:text-ink underline underline-offset-4 decoration-ink-subtle/60 hover:decoration-ink"
+          className="py-2 -my-2 text-ink-muted hover:text-ink underline underline-offset-4 decoration-ink-subtle/60 hover:decoration-ink"
         >
           Cambiar nivel
         </button>

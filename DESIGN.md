@@ -7,18 +7,18 @@ colors:
   arena-bg-elev: "oklch(0.34 0.06 158)"
   ink: "oklch(0.97 0.015 158)"
   ink-muted: "oklch(0.78 0.025 158)"
-  ink-subtle: "oklch(0.56 0.035 158)"
+  ink-subtle: "oklch(0.63 0.035 158)"
   paper: "oklch(0.97 0.012 158)"
   paper-elev: "oklch(0.99 0.008 158)"
   paper-border: "oklch(0.88 0.022 158)"
   graphite: "oklch(0.24 0.045 158)"
   graphite-mid: "oklch(0.46 0.04 158)"
-  graphite-light: "oklch(0.62 0.035 158)"
+  graphite-light: "oklch(0.52 0.035 158)"
   accent: "oklch(0.83 0.15 78)"
   accent-hover: "oklch(0.77 0.16 78)"
   accent-soft: "oklch(0.83 0.15 78 / 0.4)"
-  accent-dim: "oklch(0.55 0.12 78)"
-  wrong: "oklch(0.62 0.14 28)"
+  accent-dim: "oklch(0.58 0.12 78)"
+  wrong: "oklch(0.66 0.14 28)"
   wrong-dim: "oklch(0.42 0.11 28)"
   op-add: "oklch(0.55 0.14 158)"
   op-sub: "oklch(0.55 0.15 25)"
@@ -153,7 +153,7 @@ A continuous warm-temperature heat ramp: cool and calm at Fácil, hottest and mo
 - **Paper Border** (`oklch(0.88 0.022 158)`): Hairlines on tiles and dividers.
 - **Practice Graphite** (`oklch(0.24 0.045 158)`): Dark ink, used for headings, body, and primary content. Never `#000`.
 - **Graphite Mid** (`oklch(0.46 0.04 158)`): Secondary text, body prose.
-- **Graphite Light** (`oklch(0.62 0.035 158)`): Eyebrow labels, subtle metadata, back-link affordances.
+- **Graphite Light** (`oklch(0.52 0.035 158)`): Eyebrow labels, subtle metadata, back-link affordances. Darkened so small eyebrow text clears WCAG AA 4.5:1 on paper.
 
 ### Neutral (arena surface)
 
@@ -162,11 +162,11 @@ A continuous warm-temperature heat ramp: cool and calm at Fácil, hottest and mo
 - **Arena Elev** (`oklch(0.34 0.06 158)`): Subtle elevation; dot row pending state.
 - **Arena Ink** (`oklch(0.97 0.015 158)`): Light text on the arena.
 - **Arena Ink Muted** (`oklch(0.78 0.025 158)`): Secondary text on the arena.
-- **Arena Ink Subtle** (`oklch(0.56 0.035 158)`): Subdued text on the arena (the `?` in the problem, "Enter para continuar" hint).
+- **Arena Ink Subtle** (`oklch(0.63 0.035 158)`): Subdued text on the arena (the `?` in the problem, "Enter para continuar" hint). Raised so small non-bold text clears WCAG AA 4.5:1 on the arena.
 
 ### Destructive
 
-- **Correction Red** (`oklch(0.62 0.14 28)`): The wrong-answer signal in the arena (dot fill, exit-armed warning, reset-armed link). Reserved exclusively for "this destroys data" or "this answer is wrong" semantics.
+- **Correction Red** (`oklch(0.66 0.14 28)`): The wrong-answer signal in the arena (the `Incorrecto` marker, wrong dot). Tuned to clear AA 4.5:1 for the 14px-bold marker on the arena. Its darker sibling **Correction Red Dim** (`oklch(0.42 0.11 28)`) carries destructive *text* on the light paper hub (the reset-armed link), where the lighter arena red would fail contrast. Reserved exclusively for "this destroys data" or "this answer is wrong" semantics.
 
 ### Named Rules
 

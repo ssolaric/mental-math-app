@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
   return (
-    <div className="min-h-screen bg-paper flex flex-col items-center justify-center px-6">
+    <div className="min-h-dvh bg-paper flex flex-col items-center justify-center px-6">
       <div className="max-w-xl w-full flex flex-col items-start gap-12">
         <div className="flex flex-col gap-4">
           <h1 className="text-5xl md:text-6xl font-bold text-graphite leading-[1.05]">
@@ -28,7 +28,7 @@ function LandingPage() {
           </Link>
           <Link
             to="/stats"
-            className="text-graphite-mid hover:text-graphite underline underline-offset-4 decoration-paper-border hover:decoration-graphite font-medium"
+            className="py-2 -my-2 text-graphite-mid hover:text-graphite underline underline-offset-4 decoration-paper-border hover:decoration-graphite font-medium"
           >
             Ver progreso
           </Link>

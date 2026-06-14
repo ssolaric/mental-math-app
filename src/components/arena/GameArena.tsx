@@ -127,7 +127,7 @@ export function GameArena({
         : null;
 
   return (
-    <div className="min-h-screen bg-arena-bg text-ink flex flex-col">
+    <div className="min-h-dvh bg-arena-bg text-ink flex flex-col">
       <span className="sr-only" aria-live="assertive">
         {announcement}
       </span>

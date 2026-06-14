@@ -44,6 +44,7 @@ export const ArenaInput = ({
       onKeyDown={handleKeyDown}
       disabled={disabled}
       aria-label="Tu respuesta"
+      aria-describedby="arena-problem"
       className="w-64 md:w-72 text-6xl md:text-7xl text-center font-mono font-bold tabular-nums text-ink bg-transparent border-0 border-b border-accent-soft focus:border-accent focus:outline-none disabled:text-ink-subtle disabled:border-ink-subtle/40 pb-3 caret-accent"
     />
   );

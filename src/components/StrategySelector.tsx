@@ -23,7 +23,7 @@ export const StrategySelector = ({
   onSelectStrategy,
 }: StrategySelectorProps) => {
   return (
-    <div className="min-h-screen bg-paper flex flex-col">
+    <div className="min-h-dvh bg-paper flex flex-col">
       <header className="px-6 md:px-12 py-6">
         <Link
           to="/operation-select"
