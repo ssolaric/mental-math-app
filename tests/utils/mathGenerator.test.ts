@@ -90,14 +90,27 @@ describe("generateQuestion", () => {
     });
   });
 
-  // Item #4: expert division steps beyond hard's 1-digit divisor to a 2-digit
-  // divisor over a 3-digit dividend, still exact (integer quotient).
+  // Expert division steps beyond hard's 3-digit dividend (and 1-digit divisor) to
+  // a 4-digit dividend over a 2-digit divisor, so its operand ranges never overlap
+  // hard's. Still exact (integer quotient).
   describe("division (expert)", () => {
-    it("divides a 3-digit dividend by a 2-digit divisor", () => {
+    it("divides a 4-digit dividend by a 2-digit divisor", () => {
       for (const q of sample("division", "expert")) {
-        expect(q.num1).toBeGreaterThanOrEqual(100);
-        expect(q.num1).toBeLessThanOrEqual(999);
-        expect(q.num2).toBeGreaterThanOrEqual(10);
+        expect(q.num1).toBeGreaterThanOrEqual(1000);
+        expect(q.num1).toBeLessThanOrEqual(9999);
+        expect(q.num2).toBeGreaterThanOrEqual(11);
+        expect(q.num2).toBeLessThanOrEqual(25);
+      }
+    });
+  });
+
+  // Expert multiplication must not overlap hard's 11-30 × 11-30 band; both
+  // operands step strictly above 30 so the two levels share no problems.
+  describe("multiplication (expert)", () => {
+    it("multiplies operands that never overlap the hard band", () => {
+      for (const q of sample("multiplication", "expert")) {
+        expect(q.num1).toBeGreaterThanOrEqual(31);
+        expect(q.num2).toBeGreaterThanOrEqual(31);
       }
     });
   });
