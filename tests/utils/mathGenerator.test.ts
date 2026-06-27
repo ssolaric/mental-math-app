@@ -90,27 +90,49 @@ describe("generateQuestion", () => {
     });
   });
 
-  // Expert division steps beyond hard's 3-digit dividend (and 1-digit divisor) to
-  // a 4-digit dividend over a 2-digit divisor, so its operand ranges never overlap
-  // hard's. Still exact (integer quotient).
+  // Expert division shares hard's 3-digit dividend but steps the divisor to two
+  // digits (11-25). That 2-digit divisor alone — disjoint from hard's 1-digit
+  // divisor — makes the two levels share no problem, so the dividend need not
+  // grow. Still exact (integer quotient).
   describe("division (expert)", () => {
-    it("divides a 4-digit dividend by a 2-digit divisor", () => {
+    it("divides a 3-digit dividend by a 2-digit divisor", () => {
       for (const q of sample("division", "expert")) {
-        expect(q.num1).toBeGreaterThanOrEqual(1000);
-        expect(q.num1).toBeLessThanOrEqual(9999);
+        expect(q.num1).toBeGreaterThanOrEqual(100);
+        expect(q.num1).toBeLessThanOrEqual(999);
         expect(q.num2).toBeGreaterThanOrEqual(11);
         expect(q.num2).toBeLessThanOrEqual(25);
       }
     });
   });
 
-  // Expert multiplication must not overlap hard's 11-30 × 11-30 band; both
-  // operands step strictly above 30 so the two levels share no problems.
+  // Expert multiplication needs only ONE factor above hard's 11-30 band to be
+  // disjoint from it; num1 (the driver) is always >30 while the companion stays
+  // any two-digit number, so no expert pair falls inside 11-30 × 11-30.
   describe("multiplication (expert)", () => {
-    it("multiplies operands that never overlap the hard band", () => {
+    it("keeps the driving factor above the hard band", () => {
       for (const q of sample("multiplication", "expert")) {
         expect(q.num1).toBeGreaterThanOrEqual(31);
-        expect(q.num2).toBeGreaterThanOrEqual(31);
+        expect(q.num2).toBeGreaterThanOrEqual(11);
+      }
+    });
+  });
+
+  // Expert addition/subtraction guarantee a 4-digit driver (the first operand /
+  // the minuend), which alone makes them disjoint from hard's 3-digit problems;
+  // the companion operand is free to be smaller.
+  describe("addition (expert)", () => {
+    it("always includes a 4-digit operand", () => {
+      for (const q of sample("addition", "expert")) {
+        expect(q.num1).toBeGreaterThanOrEqual(1000);
+      }
+    });
+  });
+
+  describe("subtraction (expert)", () => {
+    it("subtracts from a 4-digit minuend", () => {
+      for (const q of sample("subtraction", "expert")) {
+        expect(q.num1).toBeGreaterThanOrEqual(1000);
+        expect(q.num2).toBeGreaterThanOrEqual(10);
       }
     });
   });

@@ -73,7 +73,7 @@ Always separate type imports from value imports.
 
 ### Math Problem Constraints (5th Grade Appropriate)
 
-- **Addition**: Operand magnitude grows one digit per level — Easy (1-9), Medium (10-99), Hard (100-999), Expert (1000-9999); each level's ranges are disjoint from the lower levels'
+- **Addition**: Each level pins one "driver" operand to a digit band disjoint from the lower levels (which alone makes the problem sets disjoint); the companion operand may be smaller. Easy (1-9 + 1-9), Medium (10-99 + 10-99), Hard (100-999 + 100-999), Expert (1000-9999 + 1-9999)
 - **Subtraction**: Always ensures num1 ≥ num2 (no negatives)
 - **Multiplication**: Easy (times tables 1-9), Medium (1-9 × 10-20), Hard (10-25 × 2-9)
 - **Division**: Always generates problems with integer quotients (uses multiplication in reverse)
