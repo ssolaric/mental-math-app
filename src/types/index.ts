@@ -3,9 +3,18 @@ export type Operation =
   | "subtraction"
   | "multiplication"
   | "division"
-  | "percentage";
-/** The four binary operations whose operands share the min1/max1/min2/max2 range shape. */
-export type ArithmeticOperation = Exclude<Operation, "percentage">;
+  | "percentage"
+  | "power"
+  | "root";
+/**
+ * The four binary operations whose operands share the min1/max1/min2/max2 range
+ * shape. Percentage, power, and root each carry their own bespoke config
+ * (mathGenerator.ts / strategy generators) rather than living in DIFFICULTY_RANGES.
+ */
+export type ArithmeticOperation = Exclude<
+  Operation,
+  "percentage" | "power" | "root"
+>;
 export type Difficulty = "easy" | "medium" | "hard" | "expert";
 
 export interface Question {
@@ -35,5 +44,7 @@ export interface GameProgress {
     multiplication: OperationStats;
     division: OperationStats;
     percentage: OperationStats;
+    power: OperationStats;
+    root: OperationStats;
   };
 }

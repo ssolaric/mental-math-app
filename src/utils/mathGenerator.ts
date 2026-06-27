@@ -1,4 +1,6 @@
 import { DIFFICULTY_RANGES } from "../constants/difficulty";
+import { generatePowersBasic } from "../strategies/powersBasic";
+import { generateRootExact } from "../strategies/rootExact";
 import type { Difficulty, Operation, Question } from "../types";
 
 const randomInt = (min: number, max: number): number => {
@@ -133,6 +135,12 @@ export const generateQuestion = (
       return generateDivision(difficulty);
     case "percentage":
       return generatePercentage(difficulty);
+    // The "Estándar" path for power/root reuses the foundational technique
+    // (exact powers / exact roots) since these operations have no plain form.
+    case "power":
+      return generatePowersBasic(difficulty);
+    case "root":
+      return generateRootExact(difficulty);
     default:
       throw new Error(`Unknown operation: ${operation}`);
   }

@@ -53,6 +53,32 @@ describe("strategy registry", () => {
     expect(getStrategy("halving").operation).toBe("division");
   });
 
+  it("registers the power and root strategies under their operations", () => {
+    expect(strategiesForOperation("power").map((s) => s.id)).toEqual([
+      "powers-basic",
+      "powers-special",
+    ]);
+    expect(strategiesForOperation("root").map((s) => s.id)).toEqual([
+      "root-exact",
+      "root-approx",
+    ]);
+  });
+
+  it("generateForRound dispatches to the power and root strategies", () => {
+    const pow = generateForRound("power", "hard", "powers-special");
+    expect(pow.operation).toBe("power");
+    expect(pow.correctAnswer).toBe(pow.num1 ** pow.num2);
+
+    const root = generateForRound("root", "medium", "root-exact");
+    expect(root.operation).toBe("root");
+    expect(root.correctAnswer ** root.num2).toBe(root.num1);
+
+    const approx = generateForRound("root", "hard", "root-approx");
+    expect(approx.correctAnswer ** approx.num2).toBeLessThanOrEqual(
+      approx.num1,
+    );
+  });
+
   it("generateForRound dispatches to the new strategies", () => {
     const dbl = generateForRound("multiplication", "easy", "doubling");
     expect(dbl.num2).toBe(2);

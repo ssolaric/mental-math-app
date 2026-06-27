@@ -1,23 +1,64 @@
 import { OPERATION_SYMBOLS } from "../../constants/operationSymbols";
-import type { Operation, Question } from "../../types";
+import type { Question } from "../../types";
+import { spokenProblem } from "../../utils/problemText";
 
 interface ArenaQuestionProps {
   question: Question;
   reveal: number | null;
 }
 
-// Spoken operator words so screen readers announce the problem as a sentence
-// rather than relying on how each SR voices "×" / "−" / "÷".
-const OPERATION_WORDS: Record<Operation, string> = {
-  addition: "más",
-  subtraction: "menos",
-  multiplication: "por",
-  division: "entre",
-  percentage: "por ciento de",
+// The expression on the left of the "=". Most operations render as
+// `num1 <symbol> num2`; powers stack the exponent as a superscript and roots
+// draw a radical (with a small index for cube roots) over the radicand.
+const ProblemExpression = ({ question }: { question: Question }) => {
+  if (question.operation === "power") {
+    return (
+      <span className="flex items-start">
+        <span className="text-7xl md:text-8xl font-bold text-ink">
+          {question.num1}
+        </span>
+        <span className="text-4xl md:text-5xl font-bold text-ink -mt-1 md:-mt-2">
+          {question.num2}
+        </span>
+      </span>
+    );
+  }
+
+  if (question.operation === "root") {
+    return (
+      <span className="flex items-start gap-1">
+        {question.num2 === 3 && (
+          <span className="self-start mt-1 text-3xl md:text-4xl font-bold text-ink-muted">
+            3
+          </span>
+        )}
+        <span className="self-start text-5xl md:text-6xl font-normal text-ink-muted">
+          √
+        </span>
+        <span className="border-t-2 border-ink pt-1 text-7xl md:text-8xl font-bold text-ink">
+          {question.num1}
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <>
+      <span className="text-7xl md:text-8xl font-bold text-ink">
+        {question.num1}
+      </span>
+      <span className="text-5xl md:text-6xl font-normal text-ink-muted">
+        {OPERATION_SYMBOLS[question.operation]}
+      </span>
+      <span className="text-7xl md:text-8xl font-bold text-ink">
+        {question.num2}
+      </span>
+    </>
+  );
 };
 
 export const ArenaQuestion = ({ question, reveal }: ArenaQuestionProps) => {
-  const spoken = `¿Cuánto es ${question.num1} ${OPERATION_WORDS[question.operation]} ${question.num2}?`;
+  const spoken = `¿Cuánto es ${spokenProblem(question)}?`;
   return (
     <div className="flex flex-col items-center gap-3">
       {/* Accessible name for the problem; the answer input references this via
@@ -30,15 +71,7 @@ export const ArenaQuestion = ({ question, reveal }: ArenaQuestionProps) => {
         aria-hidden="true"
         className="flex items-baseline justify-center gap-5 md:gap-7 font-mono tabular-nums leading-none select-none"
       >
-        <span className="text-7xl md:text-8xl font-bold text-ink">
-          {question.num1}
-        </span>
-        <span className="text-5xl md:text-6xl font-normal text-ink-muted">
-          {OPERATION_SYMBOLS[question.operation]}
-        </span>
-        <span className="text-7xl md:text-8xl font-bold text-ink">
-          {question.num2}
-        </span>
+        <ProblemExpression question={question} />
         <span className="text-5xl md:text-6xl font-normal text-ink-muted">
           =
         </span>

@@ -20,6 +20,8 @@ const OPERATION_LABELS: Record<Operation, string> = {
   multiplication: "Multiplicación",
   division: "División",
   percentage: "Porcentaje",
+  power: "Potencias",
+  root: "Raíces",
 };
 
 const DIFFICULTY_LABELS: Record<Difficulty, string> = {
@@ -59,6 +61,20 @@ const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, string>> = {
     medium: "10-75% de 20-200",
     hard: "5-75% de 20-400",
     expert: "5-85% de 50-800",
+  },
+  // Power/root are always reached via a strategy (which supplies its own
+  // describe), so these defaults only back the "Estándar" path = exact powers/roots.
+  power: {
+    easy: "n² (≤15), n³ (≤6)",
+    medium: "n² (≤30) … n⁵ (≤4)",
+    hard: "n² (≤99) … n⁵ (≤6)",
+    expert: "n² (≤99) … n⁵ (≤6)",
+  },
+  root: {
+    easy: "√ (4–144)",
+    medium: "√ (≤900), ∛ (≤1000)",
+    hard: "√ (≤9801), ∛ (≤9261)",
+    expert: "√ (≤9801), ∛ (≤9261)",
   },
 };
 

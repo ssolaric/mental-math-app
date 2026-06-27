@@ -15,6 +15,8 @@ const OPERATION_LABELS: Record<Operation, string> = {
   multiplication: "Multiplicación",
   division: "División",
   percentage: "Porcentaje",
+  power: "Potencias",
+  root: "Raíces",
 };
 
 export const StrategySelector = ({

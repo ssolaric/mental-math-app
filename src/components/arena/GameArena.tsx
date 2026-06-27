@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { OPERATION_SYMBOLS } from "../../constants/operationSymbols";
 import { type LastSubmit, useRound } from "../../hooks/useRound";
 import { recordRound } from "../../progress/progressStore";
 import type { StrategyId } from "../../strategies";
 import type { Difficulty, Operation } from "../../types";
+import { spokenProblem } from "../../utils/problemText";
 import { ArenaInput } from "./ArenaInput";
 import { ArenaQuestion } from "./ArenaQuestion";
 import { ArenaStats } from "./ArenaStats";
@@ -65,9 +65,8 @@ export function GameArena({
       setAnswer("");
       setAnnouncement("Correcto.");
     } else if (currentQuestion) {
-      const { num1, num2, operation } = currentQuestion;
       setAnnouncement(
-        `Incorrecto. ${num1} ${OPERATION_SYMBOLS[operation]} ${num2} = ${lastSubmit.correctAnswer}.`,
+        `Incorrecto. ${spokenProblem(currentQuestion)} = ${lastSubmit.correctAnswer}.`,
       );
     }
     if (lastSubmit.crossedTier !== null) {

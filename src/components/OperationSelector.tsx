@@ -56,6 +56,22 @@ const OPERATIONS: ReadonlyArray<OperationMeta> = [
     hoverBgClass: "hover:bg-op-pct-tint",
     hoverBorderClass: "hover:border-op-pct",
   },
+  {
+    type: "power",
+    symbol: "xⁿ",
+    label: "Potencias",
+    textClass: "text-op-pow",
+    hoverBgClass: "hover:bg-op-pow-tint",
+    hoverBorderClass: "hover:border-op-pow",
+  },
+  {
+    type: "root",
+    symbol: "√",
+    label: "Raíces",
+    textClass: "text-op-root",
+    hoverBgClass: "hover:bg-op-root-tint",
+    hoverBorderClass: "hover:border-op-root",
+  },
 ];
 
 export const OperationSelector = ({

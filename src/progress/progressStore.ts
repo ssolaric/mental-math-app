@@ -21,6 +21,8 @@ export const createEmptyGameProgress = (): GameProgress => ({
     multiplication: createEmptyOperationStats(),
     division: createEmptyOperationStats(),
     percentage: createEmptyOperationStats(),
+    power: createEmptyOperationStats(),
+    root: createEmptyOperationStats(),
   },
 });
 

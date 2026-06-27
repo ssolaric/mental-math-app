@@ -25,7 +25,11 @@ export type StrategyId =
   | "divide-five"
   | "successive-halving"
   | "divide-twentyfive"
-  | "divide-factors";
+  | "divide-factors"
+  | "powers-basic"
+  | "powers-special"
+  | "root-exact"
+  | "root-approx";
 
 export interface Strategy {
   id: StrategyId;

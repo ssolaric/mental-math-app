@@ -13,6 +13,8 @@ const OPERATION_LABELS: Record<Operation, string> = {
   multiplication: "Multiplicación",
   division: "División",
   percentage: "Porcentaje",
+  power: "Potencias",
+  root: "Raíces",
 };
 
 const OPERATION_ORDER: ReadonlyArray<Operation> = [
@@ -21,6 +23,8 @@ const OPERATION_ORDER: ReadonlyArray<Operation> = [
   "multiplication",
   "division",
   "percentage",
+  "power",
+  "root",
 ];
 
 export const ProgressStats = ({

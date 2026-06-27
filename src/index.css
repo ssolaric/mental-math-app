@@ -57,6 +57,10 @@
   --color-op-div-tint: oklch(0.55 0.11 215 / 0.14);
   --color-op-pct: oklch(0.54 0.13 65);
   --color-op-pct-tint: oklch(0.54 0.13 65 / 0.14);
+  --color-op-pow: oklch(0.5 0.15 264);
+  --color-op-pow-tint: oklch(0.5 0.15 264 / 0.14);
+  --color-op-root: oklch(0.55 0.1 195);
+  --color-op-root-tint: oklch(0.55 0.1 195 / 0.14);
 
   /* Difficulty heat ramp: cool/calm (easy) -> hottest/most intense (expert).
      Hue travels green -> ochre -> terra -> deep red; chroma rises, lightness

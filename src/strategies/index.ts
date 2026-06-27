@@ -11,6 +11,10 @@ import { divideTwentyFive } from "./divideTwentyFive";
 import { doubling } from "./doubling";
 import { halving } from "./halving";
 import { nearBase } from "./nearBase";
+import { powersBasic } from "./powersBasic";
+import { powersSpecial } from "./powersSpecial";
+import { rootApprox } from "./rootApprox";
+import { rootExact } from "./rootExact";
 import { squaresEndingFive } from "./squaresEndingFive";
 import { subCompensation } from "./subCompensation";
 import { subComplement } from "./subComplement";
@@ -59,6 +63,12 @@ const STRATEGIES: Record<StrategyId, Strategy> = {
   "successive-halving": successiveHalving,
   "divide-twentyfive": divideTwentyFive,
   "divide-factors": divideFactors,
+  // Powers: exact powers (squares→fifths) then powers of fixed bases (2,3,5,7,11…)
+  "powers-basic": powersBasic,
+  "powers-special": powersSpecial,
+  // Roots: exact square/cube roots then floor (approximate) roots
+  "root-exact": rootExact,
+  "root-approx": rootApprox,
 };
 
 export const getStrategy = (id: StrategyId): Strategy => STRATEGIES[id];
