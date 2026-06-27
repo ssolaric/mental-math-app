@@ -3,10 +3,10 @@ import type { Strategy } from "./types";
 import { randomInt } from "./util";
 
 const QUOTIENT_RANGE: Record<Difficulty, [number, number]> = {
-  easy: [2, 9],
-  medium: [10, 40],
-  hard: [41, 99],
-  expert: [41, 99],
+  easy: [2, 25],
+  medium: [26, 60],
+  hard: [61, 99],
+  expert: [61, 99],
 };
 
 export const generateDivideFive = (difficulty: Difficulty): Question => {
@@ -29,9 +29,9 @@ export const divideFive: Strategy = {
   label: "Entre 5",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "10-45 ÷ 5",
-    medium: "50-200 ÷ 5",
-    hard: "205-495 ÷ 5",
+    easy: "10-125 ÷ 5",
+    medium: "130-300 ÷ 5",
+    hard: "305-495 ÷ 5",
   },
   example: "240 ÷ 5 = 48 (×2, ÷10)",
   generate: generateDivideFive,

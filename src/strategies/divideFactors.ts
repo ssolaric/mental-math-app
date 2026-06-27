@@ -7,7 +7,7 @@ const CONFIG: Record<
   Difficulty,
   { divisors: number[]; quotient: [number, number] }
 > = {
-  easy: { divisors: [6], quotient: [2, 12] },
+  easy: { divisors: [6], quotient: [2, 25] },
   medium: { divisors: [12, 15], quotient: [2, 12] },
   hard: { divisors: [24, 36], quotient: [2, 12] },
   expert: { divisors: [24, 36], quotient: [2, 12] },

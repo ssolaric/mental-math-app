@@ -81,14 +81,47 @@ export const hasStrategies = (operation: Operation): boolean =>
   strategiesForOperation(operation).length > 0;
 
 /**
+ * Stable identity of a problem within a round. Two questions collide when they
+ * share an operation and both operands — that is the same operation the student
+ * would see twice. The correct answer is derived from these, so it is omitted.
+ */
+export const questionKey = (q: Question): string =>
+  `${q.operation}:${q.num1}:${q.num2}`;
+
+// Generators are pure random draws, so the only way to avoid a repeat is to
+// re-draw. Every offered pool is sized comfortably above the round length
+// (see constants/difficulty.ts and the strategy configs), so a fresh draw is
+// found in a handful of tries; the cap is a safety valve, never the norm.
+const UNIQUE_GENERATION_ATTEMPTS = 80;
+
+/**
  * Resolve the generator for a round: a strategy generator when a strategyId is
  * given, otherwise the standard generator for the operation.
+ *
+ * When `seen` is supplied, the result is guaranteed not to repeat a key already
+ * in it (subject to the attempt cap) so a single round never shows the same
+ * operation twice.
  */
 export const generateForRound = (
   operation: Operation,
   difficulty: Difficulty,
   strategyId?: StrategyId,
-): Question =>
-  strategyId
-    ? getStrategy(strategyId).generate(difficulty)
-    : generateQuestion(operation, difficulty);
+  seen?: ReadonlySet<string>,
+): Question => {
+  const draw = (): Question =>
+    strategyId
+      ? getStrategy(strategyId).generate(difficulty)
+      : generateQuestion(operation, difficulty);
+
+  let question = draw();
+  if (seen && seen.size > 0) {
+    for (
+      let attempt = 0;
+      attempt < UNIQUE_GENERATION_ATTEMPTS && seen.has(questionKey(question));
+      attempt++
+    ) {
+      question = draw();
+    }
+  }
+  return question;
+};

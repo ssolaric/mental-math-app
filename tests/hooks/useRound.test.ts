@@ -195,6 +195,26 @@ describe("useRound", () => {
     expect(round.result.current.elapsedMs).toBe(frozen);
   });
 
+  it("never repeats the same operation within a round", () => {
+    // powers-special easy has the smallest offered pool (16 distinct), so it is
+    // the tightest test of the no-repeat guarantee over a full 10-question round.
+    const round = renderHook(() =>
+      useRound("power", "easy", 10, "powers-special"),
+    );
+
+    const keys: string[] = [];
+    for (let i = 0; i < 10; i++) {
+      const q = round.result.current.currentQuestion;
+      if (!q) break;
+      keys.push(`${q.num1}:${q.num2}`);
+      answerCorrectly(round);
+    }
+
+    expect(round.result.current.status).toBe("finished");
+    expect(keys).toHaveLength(10);
+    expect(new Set(keys).size).toBe(10);
+  });
+
   it("generates questions from the given strategy", () => {
     const round = renderHook(() =>
       useRound("multiplication", "easy", 10, "times-eleven"),

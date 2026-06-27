@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { score } from "../scoring";
-import { generateForRound, type StrategyId } from "../strategies";
+import { generateForRound, questionKey, type StrategyId } from "../strategies";
 import type { Difficulty, Operation, Question } from "../types";
 import { validateAnswer } from "../utils/validators";
 
@@ -53,23 +53,54 @@ interface RoundState {
   lastSubmit: LastSubmit | null;
   startTimeMs: number;
   frozenElapsedMs: number | null;
+  // keys of every question shown this round, so no operation repeats within it
+  seenKeys: ReadonlySet<string>;
 }
+
+// Draw the next question avoiding any already shown this round, returning it
+// alongside the grown seen-set to fold back into state.
+const drawNext = (
+  operation: Operation,
+  difficulty: Difficulty,
+  strategyId: StrategyId | undefined,
+  seenKeys: ReadonlySet<string>,
+): { question: Question; seenKeys: ReadonlySet<string> } => {
+  const question = generateForRound(
+    operation,
+    difficulty,
+    strategyId,
+    seenKeys,
+  );
+  return {
+    question,
+    seenKeys: new Set(seenKeys).add(questionKey(question)),
+  };
+};
 
 const freshState = (
   operation: Operation,
   difficulty: Difficulty,
   strategyId?: StrategyId,
-): RoundState => ({
-  status: "playing",
-  currentQuestion: generateForRound(operation, difficulty, strategyId),
-  results: [],
-  score: 0,
-  streak: 0,
-  bestStreak: 0,
-  lastSubmit: null,
-  startTimeMs: Date.now(),
-  frozenElapsedMs: null,
-});
+): RoundState => {
+  const { question, seenKeys } = drawNext(
+    operation,
+    difficulty,
+    strategyId,
+    new Set(),
+  );
+  return {
+    status: "playing",
+    currentQuestion: question,
+    results: [],
+    score: 0,
+    streak: 0,
+    bestStreak: 0,
+    lastSubmit: null,
+    startTimeMs: Date.now(),
+    frozenElapsedMs: null,
+    seenKeys,
+  };
+};
 
 const tierCrossed = (prev: number, next: number): StreakTier | null => {
   // streak increments by 1 on correct, resets to 0 on wrong — at most one tier per submit
@@ -165,9 +196,11 @@ export const useRound = (
           };
         }
 
+        const next = drawNext(operation, difficulty, strategyId, s.seenKeys);
         return {
           ...s,
-          currentQuestion: generateForRound(operation, difficulty, strategyId),
+          currentQuestion: next.question,
+          seenKeys: next.seenKeys,
           results: nextResults,
           score: s.score + pointsEarned,
           streak: newStreak,
@@ -192,10 +225,12 @@ export const useRound = (
           frozenElapsedMs: Date.now() - s.startTimeMs,
         };
       }
+      const next = drawNext(operation, difficulty, strategyId, s.seenKeys);
       return {
         ...s,
         status: "playing",
-        currentQuestion: generateForRound(operation, difficulty, strategyId),
+        currentQuestion: next.question,
+        seenKeys: next.seenKeys,
       };
     });
   }, [operation, difficulty, strategyId]);

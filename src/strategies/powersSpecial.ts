@@ -13,17 +13,17 @@ interface PowerVariant {
 
 const VARIANTS: Record<Difficulty, PowerVariant[]> = {
   easy: [
-    { base: 2, expMin: 2, expMax: 6 }, // 4 … 64
-    { base: 3, expMin: 2, expMax: 3 }, // 9, 27
-    { base: 5, expMin: 2, expMax: 2 }, // 25
-    { base: 7, expMin: 2, expMax: 2 }, // 49
+    { base: 2, expMin: 2, expMax: 9 }, // 4 … 512
+    { base: 3, expMin: 2, expMax: 5 }, // 9 … 243
+    { base: 5, expMin: 2, expMax: 3 }, // 25, 125
+    { base: 7, expMin: 2, expMax: 3 }, // 49, 343
   ],
   medium: [
     { base: 2, expMin: 7, expMax: 12 }, // 128 … 4096
-    { base: 3, expMin: 4, expMax: 6 }, // 81 … 729
-    { base: 5, expMin: 3, expMax: 4 }, // 125, 625
-    { base: 7, expMin: 3, expMax: 3 }, // 343
-    { base: 11, expMin: 2, expMax: 2 }, // 121
+    { base: 3, expMin: 4, expMax: 7 }, // 81 … 2187
+    { base: 5, expMin: 3, expMax: 5 }, // 125 … 3125
+    { base: 7, expMin: 3, expMax: 4 }, // 343, 2401
+    { base: 11, expMin: 2, expMax: 3 }, // 121, 1331
   ],
   hard: [
     { base: 2, expMin: 13, expMax: 16 }, // 8192 … 65536
@@ -69,8 +69,8 @@ export const powersSpecial: Strategy = {
   label: "Potencias de 2, 3, 5, 7, 11…",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "2²–2⁶, 3²–3³, 5², 7²",
-    medium: "2⁷–2¹², 3⁴–3⁶, 5³–5⁴, 11²",
+    easy: "2²–2⁹, 3²–3⁵, 5²–5³, 7²–7³",
+    medium: "2⁷–2¹², 3⁴–3⁷, 5³–5⁵, 7³–7⁴, 11²–11³",
     hard: "2¹³–2¹⁶ … compuestos",
   },
   example: "2¹⁰ = 1024",

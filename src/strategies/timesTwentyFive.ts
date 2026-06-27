@@ -3,7 +3,7 @@ import type { Strategy } from "./types";
 import { randomInt } from "./util";
 
 const MULTIPLICAND_RANGE: Record<Difficulty, [number, number]> = {
-  easy: [2, 9],
+  easy: [2, 25],
   medium: [10, 40],
   hard: [10, 99],
   expert: [10, 99],
@@ -28,7 +28,7 @@ export const timesTwentyFive: Strategy = {
   label: "Por 25",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "2-9 × 25",
+    easy: "2-25 × 25",
     medium: "10-40 × 25",
     hard: "10-99 × 25",
   },

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   generateForRound,
   getStrategy,
+  questionKey,
   strategiesForOperation,
 } from "../../src/strategies";
 
@@ -36,6 +37,18 @@ describe("strategy registry", () => {
     const q = generateForRound("addition", "easy");
     expect(q.operation).toBe("addition");
     expect(q.correctAnswer).toBe(q.num1 + q.num2);
+  });
+
+  it("generateForRound avoids keys already seen this round", () => {
+    // A round's worth of draws from a small fixed-pool strategy (powers-special
+    // easy offers 16 distinct operations) must never repeat a key already seen.
+    const seen = new Set<string>();
+    for (let i = 0; i < 10; i++) {
+      const q = generateForRound("power", "easy", "powers-special", seen);
+      const key = questionKey(q);
+      expect(seen.has(key)).toBe(false);
+      seen.add(key);
+    }
   });
 
   it("registers doubling and times-ninetynine under multiplication", () => {

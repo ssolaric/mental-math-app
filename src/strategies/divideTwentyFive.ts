@@ -5,10 +5,10 @@ import { randomInt } from "./util";
 // ÷25 is the inverse of ×25: divide by 100, then multiply by 4. Pick the quotient
 // so the dividend is always a clean multiple of 25.
 const QUOTIENT_RANGE: Record<Difficulty, [number, number]> = {
-  easy: [2, 9],
-  medium: [10, 20],
-  hard: [10, 40],
-  expert: [10, 40],
+  easy: [2, 25],
+  medium: [26, 60],
+  hard: [61, 99],
+  expert: [61, 99],
 };
 
 export const generateDivideTwentyFive = (difficulty: Difficulty): Question => {
@@ -31,9 +31,9 @@ export const divideTwentyFive: Strategy = {
   label: "Entre 25",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "50-225 ÷ 25",
-    medium: "250-500 ÷ 25",
-    hard: "250-1000 ÷ 25",
+    easy: "50-625 ÷ 25",
+    medium: "650-1500 ÷ 25",
+    hard: "1525-2475 ÷ 25",
   },
   example: "300 ÷ 25 = 12 (÷100, ×4)",
   generate: generateDivideTwentyFive,

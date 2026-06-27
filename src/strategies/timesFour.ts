@@ -4,10 +4,10 @@ import { randomInt } from "./util";
 
 // ×4 is two doublings in a row — double, then double again
 const NUMBER_RANGE: Record<Difficulty, [number, number]> = {
-  easy: [2, 12],
-  medium: [13, 50],
-  hard: [51, 99],
-  expert: [51, 99],
+  easy: [2, 30],
+  medium: [31, 60],
+  hard: [61, 99],
+  expert: [61, 99],
 };
 
 export const generateTimesFour = (difficulty: Difficulty): Question => {
@@ -29,9 +29,9 @@ export const timesFour: Strategy = {
   label: "Por 4 (doble doble)",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "2-12 × 4",
-    medium: "13-50 × 4",
-    hard: "51-99 × 4",
+    easy: "2-30 × 4",
+    medium: "31-60 × 4",
+    hard: "61-99 × 4",
   },
   example: "24 × 4 = 96 (doble, doble)",
   generate: generateTimesFour,

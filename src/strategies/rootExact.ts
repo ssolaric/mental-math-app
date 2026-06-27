@@ -12,7 +12,7 @@ interface RootVariant {
 }
 
 const VARIANTS: Record<Difficulty, RootVariant[]> = {
-  easy: [{ index: 2, rootMin: 2, rootMax: 12 }], // √4 … √144
+  easy: [{ index: 2, rootMin: 2, rootMax: 20 }], // √4 … √400
   medium: [
     { index: 2, rootMin: 2, rootMax: 30 }, // √4 … √900
     { index: 3, rootMin: 2, rootMax: 10 }, // ∛8 … ∛1000
@@ -48,7 +48,7 @@ export const rootExact: Strategy = {
   label: "Raíces exactas (√, ∛)",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "√ (4–144)",
+    easy: "√ (4–400)",
     medium: "√ (≤900), ∛ (≤1000)",
     hard: "√ (≤9801), ∛ (≤9261)",
   },

@@ -4,7 +4,7 @@ import { randomInt } from "./util";
 
 // ×99 = ×100 − ×1, so the trick is subtracting the number from its hundredfold
 const MULTIPLICAND_RANGE: Record<Difficulty, [number, number]> = {
-  easy: [2, 9],
+  easy: [2, 25],
   medium: [10, 50],
   hard: [10, 99],
   expert: [10, 99],
@@ -29,7 +29,7 @@ export const timesNineNine: Strategy = {
   label: "Por 99",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "2-9 × 99",
+    easy: "2-25 × 99",
     medium: "10-50 × 99",
     hard: "10-99 × 99",
   },

@@ -17,14 +17,21 @@ describe("generateSquaresEndingFive", () => {
     }
   });
 
-  it("uses two-digit bases on easy/medium and three-digit on hard", () => {
+  it("climbs the base range across tiers, every base ending in five", () => {
+    // Tiers reach into three-digit bases so each pool stays well above a round's
+    // length (only nine two-digit numbers end in 5), but the technique is the same.
     for (const q of sample("easy")) {
       expect(q.num1).toBeGreaterThanOrEqual(15);
-      expect(q.num1).toBeLessThanOrEqual(95);
+      expect(q.num1).toBeLessThanOrEqual(205);
+      expect(q.num1 % 10).toBe(5);
+    }
+    for (const q of sample("medium")) {
+      expect(q.num1).toBeGreaterThanOrEqual(215);
+      expect(q.num1).toBeLessThanOrEqual(555);
     }
     for (const q of sample("hard")) {
-      expect(q.num1).toBeGreaterThanOrEqual(105);
-      expect(q.num1).toBeLessThanOrEqual(195);
+      expect(q.num1).toBeGreaterThanOrEqual(565);
+      expect(q.num1).toBeLessThanOrEqual(995);
     }
   });
 });

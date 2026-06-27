@@ -4,8 +4,8 @@ import { randomInt } from "./util";
 
 // pick the quotient (the answer); dividend = quotient × 2, always even
 const QUOTIENT_RANGE: Record<Difficulty, [number, number]> = {
-  easy: [2, 15],
-  medium: [16, 75],
+  easy: [2, 30],
+  medium: [31, 75],
   hard: [76, 250],
   expert: [76, 250],
 };
@@ -30,8 +30,8 @@ export const halving: Strategy = {
   label: "Mitad",
   difficulties: ["easy", "medium", "hard"],
   describe: {
-    easy: "4-30 ÷ 2",
-    medium: "32-150 ÷ 2",
+    easy: "4-60 ÷ 2",
+    medium: "62-150 ÷ 2",
     hard: "152-500 ÷ 2",
   },
   example: "86 ÷ 2 = 43",

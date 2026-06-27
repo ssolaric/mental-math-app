@@ -7,10 +7,10 @@ const CONFIG: Record<
   Difficulty,
   { divisor: number; quotient: [number, number] }
 > = {
-  easy: { divisor: 4, quotient: [2, 12] },
-  medium: { divisor: 8, quotient: [2, 12] },
-  hard: { divisor: 8, quotient: [13, 40] },
-  expert: { divisor: 8, quotient: [13, 40] },
+  easy: { divisor: 4, quotient: [2, 25] },
+  medium: { divisor: 8, quotient: [2, 25] },
+  hard: { divisor: 8, quotient: [26, 60] },
+  expert: { divisor: 8, quotient: [26, 60] },
 };
 
 export const generateSuccessiveHalving = (difficulty: Difficulty): Question => {
