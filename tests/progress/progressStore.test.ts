@@ -184,6 +184,25 @@ describe("progress store", () => {
     expect(getProgress()).toEqual(createEmptyGameProgress());
   });
 
+  it("backfills operation stats missing from older persisted data", () => {
+    // simulate data saved before the percentage operation existed
+    const legacy = createEmptyGameProgress();
+    // @ts-expect-error intentionally drop a key to mimic a pre-percentage payload
+    delete legacy.stats.percentage;
+    configureProgressStorage(inMemoryStorageAdapter(legacy));
+    expect(getProgress().stats.percentage).toEqual({
+      totalAttempts: 0,
+      correctAnswers: 0,
+      bestScore: 0,
+      bestStreak: 0,
+      averageTime: 0,
+      lastPlayed: 0,
+    });
+    // a percentage round records cleanly rather than crashing on undefined stats
+    recordRound("percentage", summary({ total: 10, correct: 7 }));
+    expect(getProgress().stats.percentage.correctAnswers).toBe(7);
+  });
+
   it("updates the snapshot and notifies subscribers when a round is recorded", () => {
     const listener = vi.fn();
     const unsubscribe = subscribeProgress(listener);

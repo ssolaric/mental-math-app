@@ -13,6 +13,7 @@ const OPERATION_WORDS: Record<Operation, string> = {
   subtraction: "menos",
   multiplication: "por",
   division: "entre",
+  percentage: "por ciento de",
 };
 
 export const ArenaQuestion = ({ question, reveal }: ArenaQuestionProps) => {

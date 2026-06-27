@@ -48,6 +48,14 @@ const OPERATIONS: ReadonlyArray<OperationMeta> = [
     hoverBgClass: "hover:bg-op-div-tint",
     hoverBorderClass: "hover:border-op-div",
   },
+  {
+    type: "percentage",
+    symbol: "%",
+    label: "Porcentaje",
+    textClass: "text-op-pct",
+    hoverBgClass: "hover:bg-op-pct-tint",
+    hoverBorderClass: "hover:border-op-pct",
+  },
 ];
 
 export const OperationSelector = ({

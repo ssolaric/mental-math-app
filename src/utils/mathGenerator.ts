@@ -87,6 +87,37 @@ const generateDivision = (difficulty: Difficulty): Question => {
   }
 };
 
+const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
+
+// "Friendly" percents per level plus the base range they apply to. Bases are
+// snapped to a multiple of 100/gcd(percent,100) so the answer is always a whole
+// number (e.g. 25% needs a multiple of 4, 5% a multiple of 20).
+const PERCENT_CONFIG: Record<
+  Difficulty,
+  { percents: number[]; base: [number, number] }
+> = {
+  easy: { percents: [10, 25, 50], base: [10, 100] },
+  medium: { percents: [10, 20, 25, 50, 75], base: [20, 200] },
+  hard: { percents: [5, 15, 30, 40, 60, 75], base: [20, 400] },
+  expert: { percents: [5, 15, 35, 45, 65, 85], base: [50, 800] },
+};
+
+const generatePercentage = (difficulty: Difficulty): Question => {
+  const { percents, base } = PERCENT_CONFIG[difficulty];
+  const percent = percents[randomInt(0, percents.length - 1)];
+  const step = 100 / gcd(percent, 100);
+  const baseValue =
+    randomInt(Math.ceil(base[0] / step), Math.floor(base[1] / step)) * step;
+
+  return {
+    num1: percent,
+    num2: baseValue,
+    operation: "percentage",
+    correctAnswer: (percent * baseValue) / 100,
+    difficulty,
+  };
+};
+
 export const generateQuestion = (
   operation: Operation,
   difficulty: Difficulty,
@@ -100,6 +131,8 @@ export const generateQuestion = (
       return generateMultiplication(difficulty);
     case "division":
       return generateDivision(difficulty);
+    case "percentage":
+      return generatePercentage(difficulty);
     default:
       throw new Error(`Unknown operation: ${operation}`);
   }

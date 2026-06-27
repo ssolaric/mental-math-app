@@ -123,4 +123,32 @@ describe("generateQuestion", () => {
       }
     });
   });
+
+  for (const difficulty of DIFFICULTIES) {
+    describe(`percentage (${difficulty})`, () => {
+      it("always yields a whole-number answer equal to percent of the base", () => {
+        for (const q of sample("percentage", difficulty)) {
+          expect(q.operation).toBe("percentage");
+          expect(Number.isInteger(q.correctAnswer)).toBe(true);
+          expect(q.correctAnswer).toBe((q.num1 * q.num2) / 100);
+          // a positive, sensible percent and a positive base
+          expect(q.num1).toBeGreaterThan(0);
+          expect(q.num1).toBeLessThanOrEqual(100);
+          expect(q.num2).toBeGreaterThan(0);
+        }
+      });
+    });
+  }
+
+  describe("percentage (difficulty scaling)", () => {
+    it("grows the base range as difficulty rises", () => {
+      const easyMax = Math.max(
+        ...sample("percentage", "easy").map((q) => q.num2),
+      );
+      const expertMax = Math.max(
+        ...sample("percentage", "expert").map((q) => q.num2),
+      );
+      expect(expertMax).toBeGreaterThan(easyMax);
+    });
+  });
 });

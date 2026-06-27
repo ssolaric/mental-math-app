@@ -19,6 +19,7 @@ const OPERATION_LABELS: Record<Operation, string> = {
   subtraction: "Sustracción",
   multiplication: "Multiplicación",
   division: "División",
+  percentage: "Porcentaje",
 };
 
 const DIFFICULTY_LABELS: Record<Difficulty, string> = {
@@ -52,6 +53,12 @@ const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, string>> = {
     medium: "20-99 ÷ 2-9",
     hard: "100-999 ÷ 2-9",
     expert: "100-999 ÷ 11-25",
+  },
+  percentage: {
+    easy: "10-50% de 10-100",
+    medium: "10-75% de 20-200",
+    hard: "5-75% de 20-400",
+    expert: "5-85% de 50-800",
   },
 };
 

@@ -1,23 +1,30 @@
 import type { Difficulty, Operation, Question } from "../types";
 
+// Listed in pedagogical order, mirroring the STRATEGIES registry in index.ts.
 export type StrategyId =
-  | "add-compensation"
   | "add-bridge-ten"
   | "add-near-doubles"
-  | "sub-complement"
-  | "sub-compensation"
+  | "add-left-to-right"
+  | "add-compensation"
   | "sub-count-up"
-  | "times-eleven"
-  | "times-twentyfive"
+  | "sub-complement"
+  | "sub-same-difference"
+  | "sub-compensation"
+  | "doubling"
+  | "times-four"
+  | "times-eight"
   | "times-five"
   | "times-nine"
+  | "times-eleven"
+  | "times-twentyfive"
   | "times-ninetynine"
-  | "doubling"
   | "squares-ending-five"
   | "near-base"
+  | "halving"
+  | "divide-four"
   | "divide-five"
   | "successive-halving"
-  | "halving"
+  | "divide-twentyfive"
   | "divide-factors";
 
 export interface Strategy {

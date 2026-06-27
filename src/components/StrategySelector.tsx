@@ -14,6 +14,7 @@ const OPERATION_LABELS: Record<Operation, string> = {
   subtraction: "Sustracción",
   multiplication: "Multiplicación",
   division: "División",
+  percentage: "Porcentaje",
 };
 
 export const StrategySelector = ({

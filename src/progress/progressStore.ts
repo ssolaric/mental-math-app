@@ -20,8 +20,21 @@ export const createEmptyGameProgress = (): GameProgress => ({
     subtraction: createEmptyOperationStats(),
     multiplication: createEmptyOperationStats(),
     division: createEmptyOperationStats(),
+    percentage: createEmptyOperationStats(),
   },
 });
+
+// Backfill any operation stats absent from persisted data — e.g. progress saved
+// before a newer operation (like "percentage") existed — so reads never hand
+// back a half-populated stats map that would crash applyRoundToProgress.
+const normalizeProgress = (stored: GameProgress): GameProgress => {
+  const empty = createEmptyGameProgress();
+  return {
+    ...empty,
+    ...stored,
+    stats: { ...empty.stats, ...stored.stats },
+  };
+};
 
 export const applyRoundToProgress = (
   progress: GameProgress,
@@ -63,7 +76,8 @@ let snapshot: GameProgress = readInitial();
 const subscribers = new Set<() => void>();
 
 function readInitial(): GameProgress {
-  return storage.read() ?? createEmptyGameProgress();
+  const stored = storage.read();
+  return stored ? normalizeProgress(stored) : createEmptyGameProgress();
 }
 
 function emit(): void {

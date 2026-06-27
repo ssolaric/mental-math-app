@@ -1,4 +1,4 @@
-import type { Difficulty, Operation } from "../types";
+import type { ArithmeticOperation, Difficulty } from "../types";
 
 export interface DifficultyRange {
   min1: number;
@@ -7,8 +7,10 @@ export interface DifficultyRange {
   max2: number;
 }
 
+// Percentage problems don't have a symmetric two-operand range, so they carry
+// their own config in mathGenerator.ts rather than appearing here.
 export const DIFFICULTY_RANGES: Record<
-  Operation,
+  ArithmeticOperation,
   Record<Difficulty, DifficultyRange>
 > = {
   addition: {
