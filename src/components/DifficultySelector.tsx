@@ -68,13 +68,13 @@ const DIFFICULTY_RANGES: Record<Operation, Record<Difficulty, string>> = {
     easy: "n² (≤15), n³ (≤6)",
     medium: "n² (≤30) … n⁵ (≤4)",
     hard: "n² (≤99) … n⁵ (≤6)",
-    expert: "n² (≤99) … n⁵ (≤6)",
+    expert: "n² (≤300) … n⁵ (≤9)",
   },
   root: {
     easy: "√ (4–144)",
     medium: "√ (≤900), ∛ (≤1000)",
     hard: "√ (≤9801), ∛ (≤9261)",
-    expert: "√ (≤9801), ∛ (≤9261)",
+    expert: "√ (≤90000), ∛ (≤97336)",
   },
 };
 

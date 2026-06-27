@@ -29,12 +29,13 @@ const VARIANTS: Record<Difficulty, PowerVariant[]> = {
     { exponent: 4, baseMin: 2, baseMax: 9 },
     { exponent: 5, baseMin: 2, baseMax: 6 },
   ],
-  // not offered (see `difficulties` below), present only to satisfy the Record.
+  // Reached only via the operation's "Estándar" path (the strategy offers just
+  // easy/medium/hard). Steps past hard's 10000 ceiling — every result < 100000.
   expert: [
-    { exponent: 2, baseMin: 2, baseMax: 99 },
-    { exponent: 3, baseMin: 2, baseMax: 21 },
-    { exponent: 4, baseMin: 2, baseMax: 9 },
-    { exponent: 5, baseMin: 2, baseMax: 6 },
+    { exponent: 2, baseMin: 2, baseMax: 300 }, // 300² = 90000
+    { exponent: 3, baseMin: 2, baseMax: 46 }, // 46³ = 97336
+    { exponent: 4, baseMin: 2, baseMax: 17 }, // 17⁴ = 83521
+    { exponent: 5, baseMin: 2, baseMax: 9 }, // 9⁵ = 59049
   ],
 };
 

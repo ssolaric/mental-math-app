@@ -21,10 +21,11 @@ const VARIANTS: Record<Difficulty, RootVariant[]> = {
     { index: 2, rootMin: 2, rootMax: 99 }, // √4 … √9801
     { index: 3, rootMin: 2, rootMax: 21 }, // ∛8 … ∛9261
   ],
-  // not offered; mirrors hard to keep the Record exhaustive.
+  // Reached only via the operation's "Estándar" path (the strategy offers just
+  // easy/medium/hard). Steps past hard's 10000 ceiling — radicands < 100000.
   expert: [
-    { index: 2, rootMin: 2, rootMax: 99 },
-    { index: 3, rootMin: 2, rootMax: 21 },
+    { index: 2, rootMin: 2, rootMax: 300 }, // √4 … √90000
+    { index: 3, rootMin: 2, rootMax: 46 }, // ∛8 … ∛97336
   ],
 };
 

@@ -3,7 +3,7 @@ import { generateRootExact } from "../../src/strategies/rootExact";
 
 const ITERATIONS = 500;
 const LEVELS = ["easy", "medium", "hard"] as const;
-const sample = (difficulty: (typeof LEVELS)[number]) =>
+const sample = (difficulty: "easy" | "medium" | "hard" | "expert") =>
   Array.from({ length: ITERATIONS }, () => generateRootExact(difficulty));
 
 describe("generateRootExact", () => {
@@ -26,5 +26,13 @@ describe("generateRootExact", () => {
   it("adds cube roots from medium onward", () => {
     expect(sample("medium").some((q) => q.num2 === 3)).toBe(true);
     expect(sample("hard").some((q) => q.num2 === 3)).toBe(true);
+  });
+
+  it("pushes expert past hard's 10000 ceiling but under 100000", () => {
+    const radicands = sample("expert").map((q) => q.num1);
+    expect(Math.max(...radicands)).toBeGreaterThan(10000);
+    for (const r of radicands) {
+      expect(r).toBeLessThan(100000);
+    }
   });
 });
